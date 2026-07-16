@@ -15,6 +15,46 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <style>
+          /* Style de la bannière fixe */
+          .cookie-banner {
+              position: fixed;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              background-color: #1a252f; /* Couleur sombre qui va bien avec le thème Freelancer */
+              color: white;
+              padding: 15px 20px;
+              box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+              z-index: 9999; /* Pour qu'elle passe au-dessus de tout le contenu */
+              display: none; /* Masquée par défaut, JS l'affichera si besoin */
+              transition: all 0.3s ease-in-out;
+          }
+
+          /* Alignement du contenu */
+          .cookie-content {
+              max-width: 1140px;
+              margin: 0 auto;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              flex-wrap: wrap;
+              gap: 15px;
+          }
+
+          .cookie-content p {
+              margin: 0;
+              font-size: 0.9rem;
+              flex: 1;
+              min-width: 250px;
+          }
+      
+          .cookie-content button {
+              border-radius: 5px;
+              padding: 8px 20px;
+              cursor: pointer;
+          }
+        </style>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -459,6 +499,64 @@
         <script>
             // Ce code récupère l'année en cours sur l'ordinateur du visiteur (2026)
         document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+        <!-- Bannière de Cookies RGPD -->
+        <div id="cookie-banner" class="cookie-banner">
+            <div class="cookie-content">
+                <p>🍪 <strong>Respect de la vie privée :</strong> Ce site utilise des cookies pour personnaliser votre expérience et analyser le trafic. En cliquant sur "Accepter", vous consentez à leur utilisation conformément aux règles européennes (RGPD).</p>
+                <button id="accept-cookies" class="btn btn-light btn-sm text-dark font-weight-bold">Accepter</button>
+            </div>
+        </div>
+        <script>
+          // Fonction pour créer un cookie sécurisé
+          function setCookie(name, value, days) {
+              let expires = "";
+              if (days) {
+                  const date = new Date();
+                  date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                  expires = "; expires=" + date.toUTCString();
+              }
+              // On applique "Secure" et "SameSite=Strict" pour la sécurité de base accessible en JS
+              document.cookie = name + "=" + (value || "")  + expires + "; path=/; Secure; SameSite=Strict";
+          }
+      
+          // Fonction pour lire un cookie existant
+          function getCookie(name) {
+              const nameEQ = name + "=";
+              const ca = document.cookie.split(';');
+              for(let i=0; i < ca.length; i++) {
+                  let c = ca[i];
+                  while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                  if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+              }
+              return null;
+          }
+      
+          // Logique de la bannière
+          document.addEventListener("DOMContentLoaded", function() {
+              const banner = document.getElementById("cookie-banner");
+              const acceptBtn = document.getElementById("accept-cookies");
+        
+              // Étape A : On vérifie si le cookie "cookies_accepted" existe déjà
+              const hasAccepted = getCookie("cookies_accepted");
+        
+              // Étape B : Si le cookie n'existe pas, on affiche la bannière
+              if (!hasAccepted) {
+                  banner.style.display = "block";
+              }
+          
+              // Étape C : Quand on clique sur le bouton "Accepter"
+              acceptBtn.addEventListener("click", function() {
+                  // 1. On crée le cookie de consentement pour 365 jours
+                  setCookie("cookies_accepted", "true", 365);
+                  
+                  // 2. On masque la bannière immédiatement
+                  banner.style.display = "none";
+                  
+                  // 3. (Optionnel pour ton futur) C'est ICI que tu lancerais tes scripts de pistage ou d'analytics
+                  console.log("Consentement cookies accordé. Lancement des services...");
+              });
+          });
         </script>
     </body>
 </html>
