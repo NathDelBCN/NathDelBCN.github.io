@@ -500,44 +500,79 @@
         // Ce code récupère l'année en cours sur l'ordinateur du visiteur (2026)
         document.getElementById('year').textContent = new Date().getFullYear();
         </script>
-        <!-- Bannière de Cookies RGPD -->
-        <div id="cookie-banner" class="cookie-banner">
-            <div class="cookie-content">
-                <p>🍪 <strong>Respect de la vie privée :</strong> Ce site utilise des cookies pour personnaliser votre expérience et analyser le trafic. Conformément aux règles européennes (RGPD), vous pouvez accepter ou refuser leur utilisation.</p>
-                <div class="cookie-buttons">
-                    <!-- Bouton Refuser (style contour blanc) -->
-                    <button id="decline-cookies" class="btn btn-outline-light btn-sm mr-2 text-white">Refuser</button>
-                    <!-- Bouton Accepter (style plein blanc) -->
-                    <button id="accept-cookies" class="btn btn-light btn-sm text-dark font-weight-bold">Accepter</button>
-                </div>
-            </div>
-        </div>
-        
         <script>
-          // ID unique de ton Google Analytics
           const GA_TRACKING_ID = 'G-92GKHEX3C2';
         
-          // 1. Fonction pour charger dynamiquement Google Analytics
-          function loadGoogleAnalytics() {
-              // Évite de charger le script plusieurs fois
-              if (window.gtag) return;
+          // 1. Notre dictionnaire local sécurisé (Sans cookies / RGPD Friendly)
+          const localTranslations = {
+              fr: {
+                  welcome_title: "Bienvenue sur mon Portfolio",
+                  welcome_desc: "Je suis un futur expert en cybersécurité."
+              },
+              es: {
+                  welcome_title: "Bienvenido a mi Portafolio",
+                  welcome_desc: "Soy un futuro experto en ciberseguridad."
+              },
+              en: {
+                  welcome_title: "Welcome to my Portfolio",
+                  welcome_desc: "I am a future cybersecurity expert."
+              }
+          };
+      
+          // 2. Fonction de traduction locale (Exécutée si refus des cookies)
+          function translateLocally() {
+              const userLang = navigator.language.slice(0, 2); // Détecte la langue du navigateur (ex: "es")
+              const selectedLang = localTranslations[userLang] ? userLang : 'fr'; // Français par défaut si non géré
         
-              // Crée la balise de script externe pour Google Analytics
+              document.querySelectorAll('[data-key]').forEach(element => {
+                  const key = element.getAttribute('data-key');
+                  if (localTranslations[selectedLang][key]) {
+                      element.innerHTML = localTranslations[selectedLang][key];
+                  }
+              });
+              document.documentElement.lang = selectedLang;
+              console.log("Traduction locale appliquée (RGPD respecté, aucun tracker Google).");
+          }
+      
+          // 3. Fonction pour charger Google Analytics ET Google Translate (Exécutée UNIQUEMENT si acceptation)
+          function loadGoogleServices() {
+              if (window.gtag) return; // Évite les doublons
+        
+              // --- A. Chargement de Google Analytics ---
               const gaScript = document.createElement('script');
               gaScript.async = true;
               gaScript.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_TRACKING_ID;
               document.head.appendChild(gaScript);
         
-              // Initialise les fonctions requises par Google Analytics
               window.dataLayer = window.dataLayer || [];
               window.gtag = function() { dataLayer.push(arguments); }
               gtag('js', new Date());
               gtag('config', GA_TRACKING_ID);
-              
-              console.log("Google Analytics chargé légalement suite au consentement !");
+        
+              // --- B. Chargement de Google Translate ---
+              // On affiche l'élément du menu Google Translate
+              const translateDiv = document.getElementById("google_translate_element");
+              if (translateDiv) translateDiv.style.display = "block";
+        
+              // On configure l'initialisation du widget Google
+              window.googleTranslateElementInit = function() {
+                  new google.translate.TranslateElement({
+                      pageLanguage: 'fr',
+                      includedLanguages: 'en,es,fr',
+                      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                      autoDisplay: true
+                  }, 'google_translate_element');
+              };
+          
+              // On injecte dynamiquement le script de Google Translate
+              const gtScript = document.createElement('script');
+              gtScript.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+              document.head.appendChild(gtScript);
+          
+              console.log("Google Analytics et Google Translate chargés légalement suite au consentement !");
           }
       
-          // Fonction pour créer un cookie sécurisé
+          // Fonctions de gestion des cookies
           function setCookie(name, value, days) {
               let expires = "";
               if (days) {
@@ -545,11 +580,9 @@
                   date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
                   expires = "; expires=" + date.toUTCString();
               }
-              // "Secure" et "SameSite=Strict" appliqués pour blinder ton cookie en JS
-              document.cookie = name + "=" + (value || "")  + expires + "; path=/; Secure; SameSite=Strict";
+              document.cookie = name + "=" + (value || "") + expires + "; path=/; Secure; SameSite=Strict";
           }
       
-          // Fonction pour lire un cookie existant
           function getCookie(name) {
               const nameEQ = name + "=";
               const ca = document.cookie.split(';');
@@ -561,47 +594,39 @@
               return null;
           }
       
-          // Logique de la bannière
+          // 4. Logique d'initialisation de la bannière
           document.addEventListener("DOMContentLoaded", function() {
               const banner = document.getElementById("cookie-banner");
               const acceptBtn = document.getElementById("accept-cookies");
-              const declineBtn = document.getElementById("decline-cookies"); // Récupération du bouton Refuser
+              const declineBtn = document.getElementById("decline-cookies");
         
-              // Étape A : On vérifie la valeur du cookie "cookies_accepted" (peut être "true", "false" ou null)
               const cookieConsent = getCookie("cookies_accepted");
         
-              // Étape B : On applique la bonne logique selon la réponse
               if (cookieConsent === null) {
-                  // L'utilisateur n'a pas encore fait de choix -> on montre la bannière
+                  // A. Premier passage : on affiche la bannière
                   banner.style.display = "block";
+                  // Par sécurité et confort visuel, on traduit localement en attendant son choix
+                  translateLocally();
               } else if (cookieConsent === "true") {
-                  // L'utilisateur a déjà accepté -> on charge Google Analytics directement
-                  loadGoogleAnalytics();
+                  // B. Déjà accepté : on lance tous les services Google (Analytics + Translate)
+                  loadGoogleServices();
+              } else {
+                  // C. Déjà refusé : pas de Google ! On applique uniquement la traduction locale
+                  translateLocally();
               }
-              // Si cookieConsent === "false", on laisse la bannière masquée et on ne charge PAS Google Analytics.
           
-              // Étape C-1 : Quand on clique sur le bouton "Accepter"
+              // Clic sur Accepter
               acceptBtn.addEventListener("click", function() {
-                  // 1. On crée le cookie à "true" pour 365 jours (1 an)
                   setCookie("cookies_accepted", "true", 365);
-            
-                  // 2. On masque la bannière immédiatement
                   banner.style.display = "none";
-            
-                  // 3. On déclenche le script de suivi Google Analytics
-                  loadGoogleAnalytics();
+                  loadGoogleServices(); // Lance le tracking et le vrai traducteur Google
               });
           
-              // Étape C-2 : Quand on clique sur le bouton "Refuser"
+              // Clic sur Refuser
               declineBtn.addEventListener("click", function() {
-                  // 1. On crée le cookie à "false" pour 365 jours pour se souvenir de son refus
                   setCookie("cookies_accepted", "false", 365);
-            
-                  // 2. On masque la bannière immédiatement
                   banner.style.display = "none";
-            
-                  // 3. Google Analytics n'est PAS chargé.
-                  console.log("Cookies refusés. Google Analytics bloqué.");
+                  translateLocally(); // Reste sur la traduction locale sécurisée
               });
           });
         </script>
