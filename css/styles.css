@@ -11044,3 +11044,105 @@ html {
 .copyright {
   background-color: #1a252f;
 }
+
+/* Style moderne pour la bannière de cookies */
+.cookie-banner {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    max-width: 400px;
+    background-color: #1a252f; /* Bleu sombre élégant */
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.cookie-content p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    color: #dfe2e6;
+}
+
+/* Panneau des paramètres */
+.cookie-settings-box {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+}
+
+.cookie-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #ffffff;
+}
+
+.cookie-option:last-child {
+    margin-bottom: 0;
+}
+
+.cookie-option input[type="checkbox"] {
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #1abc9c; /* Couleur verte turquoise pour les checkboxes cochées */
+}
+
+/* Boutons de la bannière */
+.cookie-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.cookie-btn {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    border: none;
+}
+
+.cookie-btn-secondary {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+}
+
+.cookie-btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
+}
+
+.cookie-btn-primary {
+    background-color: #1abc9c; /* Bouton principal vert/turquoise */
+    color: #1a252f;
+}
+
+.cookie-btn-primary:hover {
+    background-color: #16a085;
+    color: #ffffff;
+}
+
+/* Responsive pour mobiles */
+@media (max-width: 576px) {
+    .cookie-banner {
+        bottom: 0;
+        right: 0;
+        left: 0;
+        max-width: 100%;
+        border-radius: 0;
+    }
+}
