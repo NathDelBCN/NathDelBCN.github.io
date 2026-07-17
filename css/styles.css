@@ -11146,3 +11146,28 @@ html {
         border-radius: 0;
     }
 }
+
+/* Force l'affichage du widget de traduction de Google */
+#google_translate_element {
+    display: block !important;
+    position: fixed;
+    bottom: 20px;
+    left: 20px; /* Positionné en bas à gauche pour ne pas gêner ta bannière de cookies */
+    z-index: 10000; /* Passe au-dessus de tout */
+    background: #1a252f;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Nettoie les styles imposés par Google pour que ce soit plus joli */
+.goog-te-gadget-simple {
+    background-color: #2c3e50 !important;
+    border: 1px solid #34495e !important;
+    padding: 6px 10px !important;
+    border-radius: 4px !important;
+    cursor: pointer;
+}
+.goog-te-gadget-simple span {
+    color: #ffffff !important;
+}
