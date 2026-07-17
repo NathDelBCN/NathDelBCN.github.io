@@ -207,31 +207,31 @@
                             <!-- Redirection après l'envoi du message (renvoie vers ton site) -->
                             <input type="hidden" name="redirect" value="https://nathdelbcn.github.io/">
                         
-                            <!-- Name input-->
+                            <!-- Name input (required = obligatoire) -->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="name" name="name" type="text" placeholder="Enter your name..." required />
                                 <label for="name">Full name</label>
                             </div>
                         
-                            <!-- Email address input-->
+                            <!-- Email address input (required + type="email" = obligatoire et doit être un vrai e-mail) -->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" required />
                                 <label for="email">Email address</label>
                             </div>
                         
-                            <!-- Phone number input-->
+                            <!-- Phone number input (required = obligatoire) -->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="phone" name="phone" type="tel" placeholder="(123) 456-7890" required />
                                 <label for="phone">Phone number</label>
                             </div>
                         
-                            <!-- Message input-->
+                            <!-- Message input (required = obligatoire) -->
                             <div class="form-floating mb-3">
                                 <textarea class="form-control" id="message" name="message" placeholder="Enter your message here..." style="height: 10rem" required></textarea>
                                 <label for="message">Message</label>
                             </div>
                         
-                            <!-- Submit Button (Actif par défaut pour fonctionner de manière native) -->
+                            <!-- Submit Button -->
                             <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Send</button>
                         </form>
                     
