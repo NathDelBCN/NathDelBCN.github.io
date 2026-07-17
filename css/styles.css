@@ -11171,3 +11171,8 @@ html {
 .goog-te-gadget-simple span {
     color: #ffffff !important;
 }
+
+/* Cache les éléments du portfolio par défaut */
+.portfolio-item-wrapper {
+    display: none;
+}
