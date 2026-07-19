@@ -6,7 +6,8 @@
         <meta name="description" content="Personal portfolio of Nathaël, student and web developer." />
         <meta name="author" content="Nathaël" />
         <title id="page-title">Portfolio Nathaël</title>
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Favicon par défaut, il sera écrasé par Google Sheets si image site est rempli -->
+        <link id="site-favicon" rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
@@ -19,26 +20,53 @@
             /* Préserve la mise en forme du tableur */
             .format-rich-text { white-space: pre-line; word-wrap: break-word; }
             
-            /* --- RÉSOLUTION DU PROBLÈMES DES DOUBLES BOUTONS GOOGLE TRANSLATE --- */
-            /* 1. Cacher complètement la barre par défaut en haut de page */
-            .goog-te-banner-frame.skiptranslate { display: none !important; }
+            /* --- WIDGET GOOGLE TRANSLATE PARFAITEMENT INTÉGRÉ --- */
+            /* 1. Bloque la barre supérieure de Google */
             body { top: 0px !important; }
-            /* 2. Cacher l'ancien widget natif qui apparaît en bas à gauche */
-            .goog-te-gadget-simple { display: none !important; }
+            .goog-te-banner-frame { display: none !important; }
             
-            /* 3. Notre nouveau widget escamotable et unique en bas à droite */
-            #translate-widget-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
-            #translate-toggle-btn { background: #2c3e50; color: #fff; border: 2px solid #1abc9c; border-radius: 30px; padding: 10px 18px; font-size: 0.85rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
-            #translate-toggle-btn:hover { background: #1abc9c; color: #2c3e50; }
-            #google_translate_element { display: none; background: #fff; padding: 5px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); margin-bottom: 10px; }
-            #google_translate_element .goog-te-gadget-simple { display: inline-block !important; border: none !important; background: transparent !important; }
+            /* 2. Positionne le menu déroulant en bas à droite */
+            #google_translate_element {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 9999;
+            }
+            /* 3. Cache les textes indésirables ("Powered by Google") */
+            .goog-te-gadget {
+                font-family: 'Montserrat', sans-serif !important;
+                font-size: 0px !important; 
+                color: transparent !important;
+            }
+            .goog-te-gadget img { display: none !important; }
+            
+            /* 4. Transforme le menu déroulant avec les couleurs de ton site */
+            .goog-te-gadget .goog-te-combo {
+                font-family: 'Montserrat', sans-serif !important;
+                font-size: 14px !important;
+                color: #fff !important;
+                background-color: #2c3e50 !important;
+                border: 2px solid #1abc9c !important;
+                border-radius: 30px !important;
+                padding: 8px 16px !important;
+                cursor: pointer;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+                outline: none;
+            }
+            .goog-te-gadget .goog-te-combo:hover {
+                background-color: #1abc9c !important;
+                color: #2c3e50 !important;
+            }
         </style>
     </head>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="#page-top">Portfolio Nathaël <span id="nav-lastname"></span></a>
+                <a class="navbar-brand d-flex align-items-center" href="#page-top">
+                    <img id="nav-logo" src="" alt="Logo" style="display:none; height: 35px; width: 35px; margin-right: 12px; border-radius: 5px; object-fit: cover;" />
+                    <span>Portfolio Nathaël <span id="nav-lastname"></span></span>
+                </a>
                 <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu <i class="fas fa-bars"></i>
                 </button>
@@ -59,7 +87,6 @@
         <!-- Masthead-->
         <header class="masthead bg-primary text-white text-center">
             <div class="container d-flex align-items-center flex-column">
-                <!-- Correction du double cercle : suppression des bordures excédentaires -->
                 <img id="profile-avatar" class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="Avatar" style="width: 15rem; height: 15rem; object-fit: contain;" />
                 <h1 class="masthead-heading text-uppercase mb-0" style="line-height: 1.3;">
                     Portfolio <span class="d-block">Nathaël <span id="private-lastname"></span></span>
@@ -248,13 +275,8 @@
             </div>
         </div>
         
-        <!-- NOUVEAU WIDGET TRANSLATE ESCAMOTABLE EN BAS À DROITE -->
-        <div id="translate-widget-container" style="display: none;">
-            <div id="google_translate_element"></div>
-            <button id="translate-toggle-btn" title="Toggle translation language">
-                <i class="fas fa-globe"></i> <span>Translate</span>
-            </button>
-        </div>
+        <!-- LE SEUL WIDGET TRANSLATE DE GOOGLE (PROPRE) -->
+        <div id="google_translate_element"></div>
 
         <!-- SCRIPT JAVASCRIPT PRINCIPAL -->
         <script>
@@ -325,8 +347,23 @@
                       document.getElementById("portfolio-grid").innerHTML = `<p class="text-danger fw-bold">Failed to load projects.</p>`;
                   }
 
+                  // MISE À JOUR DE LA PHOTO DE PROFIL
                   if (result.profileImage && result.profileImage.trim() !== "") {
                       document.getElementById("profile-avatar").setAttribute("src", result.profileImage);
+                  }
+                  
+                  // MISE À JOUR DU LOGO DU SITE (Favicon + Navbar)
+                  if (result.siteLogo && result.siteLogo.trim() !== "") {
+                      // Modifie le Favicon (l'icône de l'onglet)
+                      const favicon = document.getElementById("site-favicon");
+                      if (favicon) favicon.href = result.siteLogo;
+                      
+                      // Ajoute le logo à la Navbar
+                      const navLogo = document.getElementById("nav-logo");
+                      if (navLogo) {
+                          navLogo.src = result.siteLogo;
+                          navLogo.style.display = "block";
+                      }
                   }
               })
               .catch(err => {
@@ -409,10 +446,6 @@
                               const loginModalEl = document.getElementById('loginModal');
                               const modalInstance = bootstrap.Modal.getInstance(loginModalEl);
                               if (modalInstance) modalInstance.hide();
-                              
-                              if (result.profileImage && result.profileImage.trim() !== "") {
-                                  document.getElementById("profile-avatar").setAttribute("src", result.profileImage);
-                              }
                               
                               if (result.data.lastName) {
                                   document.title = "Portfolio Nathaël " + result.data.lastName;
@@ -502,28 +535,16 @@
           
               function loadGoogleTranslate() {
                   if (window.googleTranslateElementInit) return;
-                  const container = document.getElementById("translate-widget-container");
-                  const translateDiv = document.getElementById("google_translate_element");
-                  const toggleBtn = document.getElementById("translate-toggle-btn");
-
-                  if (container) container.style.display = "flex";
                   
-                  if (toggleBtn && translateDiv) {
-                      toggleBtn.addEventListener("click", function() {
-                          if (translateDiv.style.display === "none" || translateDiv.style.display === "") {
-                              translateDiv.style.display = "block";
-                              toggleBtn.innerHTML = '<i class="fas fa-times"></i> <span>Close</span>';
-                          } else {
-                              translateDiv.style.display = "none";
-                              toggleBtn.innerHTML = '<i class="fas fa-globe"></i> <span>Translate</span>';
-                          }
-                      });
-                  }
-
+                  // Fonction officielle de Google Translate
                   window.googleTranslateElementInit = function() {
-                      new google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false }, 'google_translate_element');
+                      new google.translate.TranslateElement({ 
+                          pageLanguage: 'en',
+                          autoDisplay: false 
+                      }, 'google_translate_element');
                   };
-                  const gtScript = document.createElement('script'); gtScript.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+                  const gtScript = document.createElement('script'); 
+                  gtScript.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
                   document.head.appendChild(gtScript);
               }
           
