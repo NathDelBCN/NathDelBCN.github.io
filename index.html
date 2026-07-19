@@ -25,22 +25,29 @@
             body { top: 0px !important; }
             .goog-te-banner-frame { display: none !important; }
             
-            /* 2. Positionne le menu déroulant en bas à droite */
-            #google_translate_element {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                z-index: 9999;
-            }
-            /* 3. Cache les textes indésirables ("Powered by Google") */
-            .goog-te-gadget {
-                font-family: 'Montserrat', sans-serif !important;
-                font-size: 0px !important; 
-                color: transparent !important;
-            }
-            .goog-te-gadget img { display: none !important; }
+            /* 2. Positionne le conteneur en bas à droite */
+            #translate-widget-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
             
-            /* 4. Transforme le menu déroulant avec les couleurs de ton site */
+            /* 3. Force le petit rectangle (empêche la barre géante) */
+            #google_translate_element { 
+                display: none; 
+                background: #2c3e50; 
+                padding: 10px; 
+                border-radius: 10px; 
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+                margin-bottom: 10px; 
+                width: max-content !important; /* Force la taille minimale */
+                max-width: 300px;
+                overflow: hidden;
+            }
+            #google_translate_element div { display: inline-block !important; width: auto !important; }
+            
+            /* 4. Cache les textes indésirables ("Traduction", "Powered by Google") */
+            .goog-te-gadget { font-family: 'Montserrat', sans-serif !important; font-size: 0px !important; color: transparent !important; }
+            .goog-te-gadget img { display: none !important; }
+            .goog-logo-link { display: none !important; }
+            
+            /* 5. Transforme le menu déroulant avec les couleurs de ton site */
             .goog-te-gadget .goog-te-combo {
                 font-family: 'Montserrat', sans-serif !important;
                 font-size: 14px !important;
@@ -50,13 +57,18 @@
                 border-radius: 30px !important;
                 padding: 8px 16px !important;
                 cursor: pointer;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.3);
                 outline: none;
+                margin: 0 !important;
             }
-            .goog-te-gadget .goog-te-combo:hover {
-                background-color: #1abc9c !important;
-                color: #2c3e50 !important;
-            }
+            .goog-te-gadget .goog-te-combo:hover { background-color: #1abc9c !important; color: #2c3e50 !important; }
+
+            /* Boutons de contrôle Traduction */
+            .translate-controls { display: flex; gap: 10px; }
+            #translate-toggle-btn { background: #2c3e50; color: #fff; border: 2px solid #1abc9c; border-radius: 30px; padding: 8px 16px; font-size: 0.85rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
+            #translate-toggle-btn:hover { background: #1abc9c; color: #2c3e50; }
+            
+            #translate-reset-btn { background: #e74c3c; color: #fff; border: 2px solid #c0392b; border-radius: 30px; padding: 8px 16px; font-size: 0.85rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: all 0.3s ease; display: none; align-items: center; gap: 8px; }
+            #translate-reset-btn:hover { background: #c0392b; }
         </style>
     </head>
     <body id="page-top">
@@ -275,8 +287,18 @@
             </div>
         </div>
         
-        <!-- LE SEUL WIDGET TRANSLATE DE GOOGLE (PROPRE) -->
-        <div id="google_translate_element"></div>
+        <!-- NOUVEAU WIDGET TRANSLATE ESCAMOTABLE AVEC BOUTON RESET -->
+        <div id="translate-widget-container" style="display: none;">
+            <div id="google_translate_element"></div>
+            <div class="translate-controls">
+                <button id="translate-reset-btn" title="Cancel Translation (Return to English)">
+                    <i class="fas fa-undo"></i> <span>Original</span>
+                </button>
+                <button id="translate-toggle-btn" title="Choose language">
+                    <i class="fas fa-globe"></i> <span>Translate</span>
+                </button>
+            </div>
+        </div>
 
         <!-- SCRIPT JAVASCRIPT PRINCIPAL -->
         <script>
@@ -347,18 +369,14 @@
                       document.getElementById("portfolio-grid").innerHTML = `<p class="text-danger fw-bold">Failed to load projects.</p>`;
                   }
 
-                  // MISE À JOUR DE LA PHOTO DE PROFIL
                   if (result.profileImage && result.profileImage.trim() !== "") {
                       document.getElementById("profile-avatar").setAttribute("src", result.profileImage);
                   }
                   
-                  // MISE À JOUR DU LOGO DU SITE (Favicon + Navbar)
                   if (result.siteLogo && result.siteLogo.trim() !== "") {
-                      // Modifie le Favicon (l'icône de l'onglet)
                       const favicon = document.getElementById("site-favicon");
                       if (favicon) favicon.href = result.siteLogo;
                       
-                      // Ajoute le logo à la Navbar
                       const navLogo = document.getElementById("nav-logo");
                       if (navLogo) {
                           navLogo.src = result.siteLogo;
@@ -446,6 +464,10 @@
                               const loginModalEl = document.getElementById('loginModal');
                               const modalInstance = bootstrap.Modal.getInstance(loginModalEl);
                               if (modalInstance) modalInstance.hide();
+                              
+                              if (result.profileImage && result.profileImage.trim() !== "") {
+                                  document.getElementById("profile-avatar").setAttribute("src", result.profileImage);
+                              }
                               
                               if (result.data.lastName) {
                                   document.title = "Portfolio Nathaël " + result.data.lastName;
@@ -536,7 +558,40 @@
               function loadGoogleTranslate() {
                   if (window.googleTranslateElementInit) return;
                   
-                  // Fonction officielle de Google Translate
+                  const container = document.getElementById("translate-widget-container");
+                  const translateDiv = document.getElementById("google_translate_element");
+                  const toggleBtn = document.getElementById("translate-toggle-btn");
+                  const resetBtn = document.getElementById("translate-reset-btn");
+
+                  if (container) container.style.display = "flex";
+                  
+                  // Affiche le bouton Original (Reset) si une traduction est déjà active en mémoire
+                  if (document.cookie.indexOf('googtrans') !== -1 && resetBtn) {
+                      resetBtn.style.display = 'flex';
+                  }
+
+                  // Action du bouton Toggle Translate
+                  if (toggleBtn && translateDiv) {
+                      toggleBtn.addEventListener("click", function() {
+                          if (translateDiv.style.display === "none" || translateDiv.style.display === "") {
+                              translateDiv.style.display = "block";
+                              toggleBtn.innerHTML = '<i class="fas fa-times"></i> <span>Close</span>';
+                          } else {
+                              translateDiv.style.display = "none";
+                              toggleBtn.innerHTML = '<i class="fas fa-globe"></i> <span>Translate</span>';
+                          }
+                      });
+                  }
+
+                  // Action du bouton Reset (Annuler Traduction)
+                  if (resetBtn) {
+                      resetBtn.addEventListener("click", function() {
+                          document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                          document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + location.hostname;
+                          location.reload();
+                      });
+                  }
+
                   window.googleTranslateElementInit = function() {
                       new google.translate.TranslateElement({ 
                           pageLanguage: 'en',
