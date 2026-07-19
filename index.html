@@ -5,17 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="Personal portfolio of Nathaël, student and web developer." />
         <meta name="author" content="Nathaël" />
-        <!-- Nom de la page sécurisé par défaut (sans le nom de famille) -->
         <title id="page-title">Portfolio Nathaël</title>
-        <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <style>
+            /* Petits styles pour sublimer les projets verrouillés et le centrage */
+            .portfolio-item.locked { filter: grayscale(100%); opacity: 0.6; cursor: not-allowed; }
+            .portfolio-item.locked .portfolio-item-caption { background-color: rgba(231, 76, 60, 0.9) !important; }
+            .form-floating input:focus { border-color: #1abc9c; box-shadow: 0 0 0 0.25rem rgba(26, 188, 156, 0.25); }
+        </style>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -23,15 +24,13 @@
             <div class="container">
                 <a class="navbar-brand" href="#page-top">Portfolio Nathaël <span id="nav-lastname"></span></a>
                 <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
+                    Menu <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Portfolio</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li>
-                        <!-- Bouton de connexion ouvrant la boîte de dialogue -->
                         <li class="nav-item mx-0 mx-lg-1">
                             <a class="nav-link py-3 px-0 px-lg-3 rounded text-warning fw-bold" href="#!" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-trigger">🔒 Login</a>
                         </li>
@@ -43,129 +42,36 @@
         <!-- Masthead-->
         <header class="masthead bg-primary text-white text-center">
             <div class="container d-flex align-items-center flex-column">
-                <!-- Masthead Avatar Image-->
                 <img class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="..." />
-                <!-- Masthead Heading (Nom de famille injecté en JS) -->
                 <h1 class="masthead-heading text-uppercase mb-0" style="line-height: 1.3;">
                     Portfolio <span class="d-block">Nathaël <span id="private-lastname"></span></span>
                 </h1>
-                <!-- Icon Divider-->
                 <div class="divider-custom divider-light">
                     <div class="divider-custom-line"></div>
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <!-- Masthead Subheading-->
-                <p class="masthead-subheading font-weight-light mb-0" id="student-info">Chargement des informations...</p>
+                <!-- L'école et les infos scolaires se chargeront en toute sécurité ici -->
+                <p class="masthead-subheading font-weight-light mb-0" id="student-info">High School Student</p>
             </div>
         </header>
         
-        <!-- Portfolio Section-->
+        <!-- Portfolio Section (Généré 100% automatiquement depuis Google Sheets !) -->
         <section class="page-section portfolio" id="portfolio">
             <div class="container">
-                <!-- Portfolio Section Heading-->
                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Portfolio</h2>
-                <!-- Icon Divider-->
                 <div class="divider-custom">
                     <div class="divider-custom-line"></div>
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <!-- Portfolio Grid Items-->
-                <div class="row justify-content-center">
-
-                    <!-- Projet 1 : Cabin -->
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" 
-                             data-bs-toggle="modal" 
-                             data-bs-target="#dynamicPortfolioModal"
-                             data-title="Log Cabin"
-                             data-img="assets/img/portfolio/cabin.png"
-                             data-text="Test description for the Log Cabin project. This is dynamically generated!">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white">
-                                    <i class="fas fa-plus fa-3x"></i></div>
-                                <div class="fw-bold text-uppercase" style="font-size: 0.9rem;">Voir le projet</div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio/cabin.png" alt="Log Cabin" />
-                        </div>
-                    </div>
-
-                    <!-- Projet 2 : Cake -->
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" 
-                             data-bs-toggle="modal" 
-                             data-bs-target="#dynamicPortfolioModal"
-                             data-title="Tasty Cake"
-                             data-img="assets/img/portfolio/cake.png"
-                             data-text="Lorem ipsum dolor sit amet, description for the tasty cake.">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio/cake.png" alt="Tasty Cake" />
-                        </div>
-                    </div>
                 
-                    <!-- Projet 3 : Submarine (Exemple) -->
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" 
-                             data-bs-toggle="modal" 
-                             data-bs-target="#dynamicPortfolioModal"
-                             data-title="Submarine"
-                             data-img="assets/img/portfolio/submarine.png"
-                             data-text="This is an underwater cybersecurity capsule project. Cool, right?">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio/submarine.png" alt="Submarine" />
-                        </div>
+                <!-- Zone où les cartes vont apparaître automatiquement -->
+                <div class="row justify-content-center" id="portfolio-grid">
+                    <div class="col-12 text-center py-5">
+                        <div class="spinner-border text-primary" role="status"></div>
+                        <p class="mt-2 text-muted fw-bold">Loading projects from database...</p>
                     </div>
-                
-                    <!-- Projet 4 : Game Controller -->
-                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-                        <div class="portfolio-item mx-auto" 
-                             data-bs-toggle="modal" 
-                             data-bs-target="#dynamicPortfolioModal"
-                             data-title="Game Controller"
-                             data-img="assets/img/portfolio/game.png"
-                             data-text="Description for the video game controller project. Add your custom details here!">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio/game.png" alt="Game Controller" />
-                        </div>
-                    </div>
-
-                    <!-- Projet 5 : Locked Safe -->
-                    <div class="col-md-6 col-lg-4 mb-5 mb-md-0">
-                        <div class="portfolio-item mx-auto" 
-                             data-bs-toggle="modal" 
-                             data-bs-target="#dynamicPortfolioModal"
-                             data-title="Locked Safe"
-                             data-img="assets/img/portfolio/safe.png"
-                             data-text="Description for the security vault and safe box project. Perfect for showcasing backend or security work.">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio/safe.png" alt="Locked Safe" />
-                        </div>
-                    </div>
-
-                    <!-- Projet 6 : Submarine -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="portfolio-item mx-auto" 
-                             data-bs-toggle="modal" 
-                             data-bs-target="#dynamicPortfolioModal"
-                             data-title="Submarine"
-                             data-img="assets/img/portfolio/submarine.png"
-                             data-text="This is an underwater cybersecurity capsule project. Cool, right?">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio/submarine.png" alt="Submarine" />
-                        </div>
-                    </div>
-                
                 </div>
             </div>
         </section>
@@ -173,29 +79,24 @@
         <!-- About Section-->
         <section class="page-section bg-primary text-white mb-0" id="about">
             <div class="container">
-                <!-- About Section Heading-->
                 <h2 class="page-section-heading text-center text-uppercase text-white">About Me</h2>
-                <!-- Icon Divider-->
                 <div class="divider-custom divider-light">
                     <div class="divider-custom-line"></div>
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <!-- About Section Content -->
                 <div class="row justify-content-center">
                     <div class="col-lg-6 text-center">
                         <p class="lead">
-                            Hi! I'm Nathaël, a <span id="about-age"></span>-year-old student passionate about programming and web development. 
+                            Hi! I'm Nathaël, a <span id="about-age">15</span>-year-old <span id="about-school-text">high school student</span> passionate about programming and web development. 
                             This portfolio showcases my personal projects, skills, and coding journey. 
                             Feel free to explore my work and contact me if you want to collaborate!
                         </p>
                     </div>
                 </div>
-                <!-- About Section Button (Désactivé et sécurisé par défaut) -->
                 <div class="text-center mt-4">
                     <a id="cv-button" class="btn btn-xl btn-outline-light disabled" href="#!" style="pointer-events: none; opacity: 0.5;">
-                        <i class="fas fa-lock me-2"></i>
-                        Download CV (Protected)
+                        <i class="fas fa-lock me-2"></i> Download CV (Protected)
                     </a>
                 </div>
             </div>
@@ -204,68 +105,55 @@
         <!-- Contact Section-->
         <section class="page-section" id="contact">
             <div class="container">
-                <!-- Contact Section Heading-->
                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Contact Me</h2>
-                <!-- Icon Divider-->
                 <div class="divider-custom">
                     <div class="divider-custom-line"></div>
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <!-- Contact Section Form-->
                 <div class="row justify-content-center">
                     <div class="col-lg-8 col-xl-7">
-                        <!-- Formulaire connecté à Web3Forms -->
                         <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
-                            <!-- 🔑 Ta clé d'accès Web3Forms -->
                             <input type="hidden" name="access_key" value="192d3153-5ce3-4036-a590-37312adb2240">
-                            <!-- Redirection vers ton site exactement au bon format -->
-                            <input type="hidden" name="redirect" value="https://nathdelbcn.github.io/nathaeldelmas.github.io/">
+                            <input type="hidden" name="redirect" value="https://nathdelbcn.github.io/">
                         
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="name" name="name" type="text" placeholder="Enter your name..." required />
                                 <label for="name">Full name</label>
                             </div>
-                        
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" required />
                                 <label for="email">Email address</label>
                             </div>
-                        
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="phone" name="phone" type="tel" placeholder="(123) 456-7890" required />
                                 <label for="phone">Phone number</label>
                             </div>
-                        
                             <div class="form-floating mb-3">
                                 <textarea class="form-control" id="message" name="message" placeholder="Enter your message here..." style="height: 10rem" required></textarea>
                                 <label for="message">Message</label>
                             </div>
-                        
-                            <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Send</button>
+                            <button class="btn btn-primary btn-xl w-100" id="submitButton" type="submit">Send Message</button>
                         </form>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Footer-->
+        <!-- Footer (PARFAITEMENT CENTRÉ EN 2 COLONNES ÉGALES !) -->
         <footer class="footer text-center">
             <div class="container">
-                <div class="row">
-                    <!-- Footer Location (Sécurisé par défaut sans aucune adresse visible dans le code) -->
-                    <div class="col-lg-4 mb-5 mb-lg-0">
+                <div class="row justify-content-center">
+                    <!-- Colonne 1 : Localisation -->
+                    <div class="col-md-6 mb-5 mb-md-0 px-4">
                         <h4 class="text-uppercase mb-4">Location</h4>
                         <p class="lead mb-0" id="private-address">
-                            <i class="fas fa-shield-alt text-warning mb-2"></i><br/>
-                            <em>Location protected.<br/>Please login to view.</em>
+                            <i class="fas fa-shield-alt text-warning mb-2 fa-2x"></i><br/>
+                            <em>Location protected.<br/>Please login to unlock.</em>
                         </p>
                     </div>
-                    <!-- Footer Social Icons (Colonne vide pour l'alignement) -->
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                    </div>
-                    <!-- Footer About Text (Protected by Copyright) -->
-                    <div class="col-lg-4">
+                    <!-- Colonne 2 : Protection Juridique -->
+                    <div class="col-md-6 px-4">
                         <h4 class="text-uppercase mb-4">Website Protection</h4>
                         <p class="lead mb-0">
                             All original content, designs, and source code modifications on this website are strictly protected by copyright law. Unauthorized duplication is prohibited.
@@ -283,51 +171,45 @@
         </div>
         
         <!-- ========================================== -->
-        <!-- BOÎTE DE DIALOGUE DE CONNEXION (LOGIN MODAL) -->
+        <!-- BOÎTE DE DIALOGUE DE CONNEXION (PARFAITEMENT CENTRÉE) -->
         <!-- ========================================== -->
         <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content bg-secondary text-white">
-                    <div class="modal-header border-bottom-0">
-                        <h5 class="modal-title text-uppercase fw-bold" id="loginModalLabel">🔒 Private Access Authentication</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content bg-secondary text-white border-0 shadow-lg">
+                    <div class="modal-header border-bottom-0 pb-0">
+                        <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body text-center py-4">
-                        <p class="mb-4">Enter your private access code to unlock confidential details (Address, Full Name, and CV download).</p>
-                        <div class="form-floating mb-3 text-dark">
-                            <input type="password" class="form-control" id="accessCodeInput" placeholder="Enter code..." />
-                            <label for="accessCodeInput">Access Code</label>
+                    <div class="modal-body text-center px-5 pb-5 pt-2">
+                        <i class="fas fa-lock fa-3x text-warning mb-3"></i>
+                        <h4 class="modal-title text-uppercase fw-bold mb-3" id="loginModalLabel">Private Access</h4>
+                        <p class="mb-4 text-light" style="font-size: 0.95rem;">Enter your private access code to unlock confidential details and assigned projects.</p>
+                        
+                        <div class="form-floating mb-3 text-dark mx-auto" style="max-width: 300px;">
+                            <input type="password" class="form-control text-center fw-bold fs-5" id="accessCodeInput" placeholder="Enter code..." style="letter-spacing: 3px;" />
+                            <label for="accessCodeInput" class="w-100 text-center">Access Code</label>
                         </div>
+                        
                         <div id="login-error" class="text-danger fw-bold mb-3" style="display: none;">Invalid access code!</div>
-                        <button type="button" id="submitLoginBtn" class="btn btn-primary btn-xl w-100">Unlock Data</button>
+                        <button type="button" id="submitLoginBtn" class="btn btn-primary btn-xl w-100 shadow" style="max-width: 300px;">Unlock Portfolio</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Unique Modal Dynamique pour le Portfolio -->
+        <!-- Modal Dynamique pour afficher les projets -->
         <div class="portfolio-modal modal fade" id="dynamicPortfolioModal" tabindex="-1" aria-labelledby="dynamicPortfolioModal" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header border-0">
-                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
                     <div class="modal-body text-center pb-5">
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
                                     <h2 id="modal-dynamic-title" class="portfolio-modal-title text-secondary text-uppercase mb-0"></h2>
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <img id="modal-dynamic-img" class="img-fluid rounded mb-5" src="" alt="" />
-                                    <p id="modal-dynamic-text" class="mb-4"></p>
-                                    <button class="btn btn-primary" data-bs-dismiss="modal">
-                                        <i class="fas fa-xmark fa-fw"></i>
-                                        Close Window
-                                    </button>
+                                    <div class="divider-custom"><div class="divider-custom-line"></div><div class="divider-custom-icon"><i class="fas fa-star"></i></div><div class="divider-custom-line"></div></div>
+                                    <img id="modal-dynamic-img" class="img-fluid rounded mb-5 shadow" src="" alt="" />
+                                    <p id="modal-dynamic-text" class="mb-4 lead"></p>
+                                    <button class="btn btn-primary btn-lg" data-bs-dismiss="modal"><i class="fas fa-xmark fa-fw"></i> Close Window</button>
                                 </div>
                             </div>
                         </div>
@@ -336,189 +218,154 @@
             </div>
         </div>
 
-        <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
 
-        <!-- Conteneur pour charger les modals dynamiquement -->
-        <div id="modals-container"></div>
-
-        <!-- ========================================== -->
-        <!-- LE BLOC HTML DE LA BANNIÈRE AVEC OPTIONS   -->
-        <!-- ========================================== -->
+        <!-- Bannière Cookies & Traduction -->
         <div id="cookie-banner" class="cookie-banner" style="display: none;">
             <div class="cookie-content">
-                <p>🍪 <strong>Privacy Preferences:</strong> We use cookies to analyze traffic and provide optional translation services. You can customize your choices below before continuing in English.</p>
-            
+                <p>🍪 <strong>Privacy Preferences:</strong> We use cookies to analyze traffic and provide optional translation services.</p>
                 <div id="cookie-settings" class="mb-3 text-left" style="font-size: 0.9rem; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" id="consent-analytics" checked>
-                        <label class="form-check-label text-white" for="consent-analytics">
-                             📊 Google Analytics (Traffic analysis)
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="consent-translate">
-                        <label class="form-check-label text-white" for="consent-translate">
-                             🌐 Google Translate (Optional automatic translation)
-                        </label>
-                    </div>
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" id="consent-analytics" checked><label class="form-check-label text-white" for="consent-analytics">📊 Google Analytics</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="consent-translate"><label class="form-check-label text-white" for="consent-translate">🌐 Google Translate</label></div>
                 </div>
-            
                 <div class="cookie-buttons">
                     <button id="save-settings" class="btn btn-outline-light btn-sm mr-2 text-white">Save Settings</button>
                     <button id="accept-all" class="btn btn-light btn-sm text-dark font-weight-bold">Accept All</button>
                 </div>
             </div>
         </div>
-
-        <!-- Zone pour le menu Google Translate (caché par défaut) -->
         <div id="google_translate_element" style="display: none;"></div>
 
         <!-- ========================================== -->
-        <!--            LE SCRIPT JAVASCRIPT            -->
+        <!-- SCRIPT JAVASCRIPT PRINCIPAL                -->
         <!-- ========================================== -->
         <script>
-          // --- SYSTÈME DE MODAL DYNAMIQUE ET INTELLIGENT ---
-          const dynamicModal = document.getElementById('dynamicPortfolioModal');
-          if (dynamicModal) {
-              dynamicModal.addEventListener('show.bs.modal', function (event) {
-                  const triggerElement = event.relatedTarget;
-                  const title = triggerElement.getAttribute('data-title');
-                  const imgSrc = triggerElement.getAttribute('data-img');
-                  const description = triggerElement.getAttribute('data-text');
-            
-                  document.getElementById('modal-dynamic-title').textContent = title;
-                  document.getElementById('modal-dynamic-img').setAttribute('src', imgSrc);
-                  document.getElementById('modal-dynamic-img').setAttribute('alt', title);
-                  document.getElementById('modal-dynamic-text').textContent = description;
-              });
-          }
+          // 🔴 METS ICI L'URL DE TON GOOGLE APPS SCRIPT DEPLOYÉ (/exec)
+          const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwjlZ90QqFSumDyCuAAkTB_5HFtOql5iJ6PxYtv9uHp2pUC0K5yL8mZoupvXX4eNh2y4Q/exec";
 
-          const GA_TRACKING_ID = 'G-92GKHEX3C2';
-      
-          function loadGoogleAnalytics() {
-              if (window.gtag) return;
-        
-              const gaScript = document.createElement('script');
-              gaScript.async = true;
-              gaScript.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_TRACKING_ID;
-              document.head.appendChild(gaScript);
-        
-              window.dataLayer = window.dataLayer || [];
-              window.gtag = function() { dataLayer.push(arguments); }
-              gtag('js', new Date());
-              gtag('config', GA_TRACKING_ID);
-        
-              console.log("Google Analytics legally enabled!");
-          }
-      
-          function loadGoogleTranslate() {
-              if (window.googleTranslateElementInit) return;
-          
-              const translateDiv = document.getElementById("google_translate_element");
-              if (translateDiv) {
-                  translateDiv.style.display = "block";
-                  translateDiv.style.margin = "10px text-center";
-              }
-          
-              window.googleTranslateElementInit = function() {
-                  new google.translate.TranslateElement({
-                      pageLanguage: 'en',
-                      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                      autoDisplay: true
-                  }, 'google_translate_element');
-              };
-          
-              const gtScript = document.createElement('script');
-              gtScript.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-              document.head.appendChild(gtScript);
-          
-              console.log("Google Translate legally enabled!");
-          }
-      
-          function setCookie(name, value, days) {
-              let expires = "";
-              if (days) {
-                  const date = new Date();
-                  date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                  expires = "; expires=" + date.toUTCString();
-              }
-              document.cookie = name + "=" + (value || "") + expires + "; path=/; Secure; SameSite=Strict";
-          }
-      
-          function getCookie(name) {
-              const nameEQ = name + "=";
-              const ca = document.cookie.split(';');
-              for(let i=0; i < ca.length; i++) {
-                  let c = ca[i];
-                  while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                  if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-              }
-              return null;
-          }
-      
+          let globalProjectsData = []; // Stocke les projets reçus de Google Sheets
+          let userAllowedProjects = null; // null = visiteur public, array = utilisateur connecté
+
           document.addEventListener("DOMContentLoaded", function() {
               
-              // 🔴 CONFIGURATION : METS ICI EXACTEMENT L'URL DE TON GOOGLE APPS SCRIPT (qui finit par /exec)
-              const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwjlZ90QqFSumDyCuAAkTB_5HFtOql5iJ6PxYtv9uHp2pUC0K5yL8mZoupvXX4eNh2y4Q/exec";
-
-              // === A. CALCUL DYNAMIQUE DE L'ÂGE, DE LA SCOLARITÉ ET DU COPYRIGHT ===
-              function updateStudentInfo() {
+              // 1. CALCUL AUTOMATIQUE DES ÂGES ET SCOLAIRE (Sans exposer le nom de l'école !)
+              function updateStudentInfo(schoolName = "High School Student") {
                   const infoElement = document.getElementById('student-info');
                   const aboutAgeElement = document.getElementById('about-age');
+                  const aboutSchoolText = document.getElementById('about-school-text');
                   const copyrightYearElement = document.getElementById('copyright-year');
-                  if (!infoElement) return;
-
+                  
                   const now = new Date();
                   const currentYear = now.getFullYear();
                   const currentMonth = now.getMonth() + 1; 
                   const currentDay = now.getDate();
 
-                  if (copyrightYearElement) {
-                      copyrightYearElement.textContent = currentYear;
-                  }
+                  if (copyrightYearElement) copyrightYearElement.textContent = currentYear;
 
                   let age = currentYear - 2011; 
-                  if (currentMonth < 3 || (currentMonth === 3 && currentDay < 6)) {
-                      age--;
-                  }
-
-                  if (aboutAgeElement) {
-                      aboutAgeElement.textContent = age;
-                  }
+                  if (currentMonth < 3 || (currentMonth === 3 && currentDay < 6)) age--;
+                  if (aboutAgeElement) aboutAgeElement.textContent = age;
 
                   const isVacations = (currentMonth === 6 && currentDay >= 20) || (currentMonth === 7) || (currentMonth === 8);
+                  
+                  // Si l'école est déverrouillée par login, on l'écrit, sinon on met "High school student"
+                  if (aboutSchoolText) {
+                      aboutSchoolText.textContent = (schoolName !== "High School Student") ? `student at ${schoolName}` : "high school student";
+                  }
 
+                  if (!infoElement) return;
                   if (isVacations) {
-                      infoElement.textContent = `Student at Angeleta Ferrer i Sensat -- ${age} years old`;
+                      infoElement.textContent = `${schoolName} -- ${age} years old`;
                       return; 
                   }
 
                   let classe = "";
                   const schoolYearStart = (currentMonth >= 9) ? currentYear : currentYear - 1;
+                  if (schoolYearStart === 2025) classe = "3rd Grade ESO";
+                  else if (schoolYearStart === 2026) classe = "4th Grade ESO";
+                  else if (schoolYearStart === 2027) classe = "1st Year of BATXILLERAT";
+                  else if (schoolYearStart === 2028) classe = "2nd Year of BATXILLERAT";
+                  else if (schoolYearStart > 2028) { infoElement.textContent = `Student -- ${age} years old`; return; }
 
-                  if (schoolYearStart === 2025) {
-                      classe = "3rd Grade ESO";
-                  } else if (schoolYearStart === 2026) {
-                      classe = "4th Grade ESO";
-                  } else if (schoolYearStart === 2027) {
-                      classe = "1st Year of BATXILLERAT";
-                  } else if (schoolYearStart === 2028) {
-                      classe = "2nd Year of BATXILLERAT";
-                  } else if (schoolYearStart > 2028) {
-                      infoElement.textContent = `Student -- ${age} years old`;
-                      return;
-                  }
-
-                  infoElement.textContent = `Student at Angeleta Ferrer i Sensat -- ${age} years old -- ${classe}`;
+                  infoElement.textContent = `${schoolName} -- ${age} years old -- ${classe}`;
               }
 
-              updateStudentInfo();
+              updateStudentInfo(); // Lancement initial public
 
+              // 2. CHARGEMENT DYNAMIQUE DES PROJETS DEPUIS GOOGLE SHEETS
+              fetch(APPS_SCRIPT_URL, {
+                  method: "POST",
+                  body: JSON.stringify({ action: "loadProjects" })
+              })
+              .then(response => response.json())
+              .then(result => {
+                  if (result.success && result.projects) {
+                      globalProjectsData = result.projects;
+                      renderProjectsGrid();
+                  } else {
+                      document.getElementById("portfolio-grid").innerHTML = `<p class="text-danger fw-bold">Failed to load projects.</p>`;
+                  }
+              })
+              .catch(err => {
+                  console.error("Erreur chargement projets:", err);
+                  document.getElementById("portfolio-grid").innerHTML = `<p class="text-muted">Projects offline. Please check API connection.</p>`;
+              });
 
-              // === B. INTERFACE DE CONNEXION SÉCURISÉE VERS GOOGLE SHEETS ===
+              // Fonction qui dessine les cartes dans le HTML
+              function renderProjectsGrid() {
+                  const grid = document.getElementById("portfolio-grid");
+                  grid.innerHTML = ""; // On vide le loader
+
+                  globalProjectsData.forEach((proj, index) => {
+                      // On vérifie si l'utilisateur connecté a le droit de voir ce projet
+                      const isAllowed = (userAllowedProjects === null) ? true : (userAllowedProjects[index] === true);
+                      
+                      const col = document.createElement("div");
+                      col.className = "col-md-6 col-lg-4 mb-5";
+                      
+                      if (isAllowed) {
+                          // CARTE NORMALE CLIQUABLE
+                          col.innerHTML = `
+                              <div class="portfolio-item mx-auto shadow rounded" data-bs-toggle="modal" data-bs-target="#dynamicPortfolioModal"
+                                   data-title="${proj.title}" data-img="${proj.img}" data-text="${proj.text}">
+                                  <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                      <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
+                                          <i class="fas fa-plus fa-2x mb-2"></i>
+                                          <div class="fw-bold text-uppercase text-white" style="font-size: 0.85rem;">${proj.preview || 'View Project'}</div>
+                                      </div>
+                                  </div>
+                                  <img class="img-fluid w-100" src="${proj.img}" alt="${proj.title}" style="height: 250px; object-fit: cover;" />
+                              </div>`;
+                      } else {
+                          // CARTE VERROUILLÉE (Si la case est décochée dans le Sheet pour cette personne)
+                          col.innerHTML = `
+                              <div class="portfolio-item mx-auto shadow rounded locked" title="You do not have permission to view this project">
+                                  <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100" style="opacity: 1;">
+                                      <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
+                                          <i class="fas fa-lock fa-2x mb-2"></i>
+                                          <div class="fw-bold text-uppercase text-white" style="font-size: 0.85rem;">Access Restricted</div>
+                                      </div>
+                                  </div>
+                                  <img class="img-fluid w-100" src="${proj.img}" alt="Locked Project" style="height: 250px; object-fit: cover;" />
+                              </div>`;
+                      }
+                      grid.appendChild(col);
+                  });
+              }
+
+              // Gestion de l'injection dans le modal au clic
+              const dynamicModal = document.getElementById('dynamicPortfolioModal');
+              if (dynamicModal) {
+                  dynamicModal.addEventListener('show.bs.modal', function (event) {
+                      const trigger = event.relatedTarget;
+                      document.getElementById('modal-dynamic-title').textContent = trigger.getAttribute('data-title');
+                      document.getElementById('modal-dynamic-img').setAttribute('src', trigger.getAttribute('data-img'));
+                      document.getElementById('modal-dynamic-text').textContent = trigger.getAttribute('data-text');
+                  });
+              }
+
+              // 3. SYSTÈME D'AUTHENTIFICATION SÉCURISÉ VERS GOOGLE SHEETS
               const submitLoginBtn = document.getElementById("submitLoginBtn");
               const accessCodeInput = document.getElementById("accessCodeInput");
               const loginError = document.getElementById("login-error");
@@ -535,21 +382,20 @@
                       
                       fetch(APPS_SCRIPT_URL, {
                           method: "POST",
-                          mode: "cors",
-                          body: JSON.stringify({ code: codeValue })
+                          body: JSON.stringify({ action: "login", code: codeValue })
                       })
                       .then(response => response.json())
                       .then(result => {
-                          submitLoginBtn.textContent = "Unlock Data";
+                          submitLoginBtn.textContent = "Unlock Portfolio";
                           submitLoginBtn.disabled = false;
                           
                           if (result.success) {
-                              // 1. Fermer la boîte de dialogue (Modal)
+                              // Fermer le modal
                               const loginModalEl = document.getElementById('loginModal');
                               const modalInstance = bootstrap.Modal.getInstance(loginModalEl);
                               if (modalInstance) modalInstance.hide();
                               
-                              // 2. Injecter le nom de famille partout (Titre de l'onglet, Navbar, Titre central, Footer)
+                              // Déverrouiller les textes cachés
                               if (result.data.lastName) {
                                   document.title = "Portfolio Nathaël " + result.data.lastName;
                                   document.getElementById("nav-lastname").textContent = result.data.lastName;
@@ -557,33 +403,38 @@
                                   document.getElementById("copy-lastname").textContent = result.data.lastName;
                               }
                               
-                              // 3. Injecter l'adresse réelle (Sant Cugat)
-                              const addressEl = document.getElementById("private-address");
-                              if (addressEl && result.data.address) {
-                                  addressEl.innerHTML = result.data.address.replace(", ", "<br/>");
+                              if (result.data.address) {
+                                  document.getElementById("private-address").innerHTML = result.data.address.replace(", ", "<br/>");
                               }
                               
-                              // 4. Débloquer ou refuser l'accès au CV
+                              // Mettre à jour l'école avec son vrai nom !
+                              if (result.data.school) {
+                                  updateStudentInfo(result.data.school);
+                              }
+
+                              // Mettre à jour la grille de projets selon les cases cochées de l'utilisateur !
+                              userAllowedProjects = result.allowedProjects;
+                              renderProjectsGrid();
+                              
+                              // Déverrouiller le CV
                               const cvButton = document.getElementById("cv-button");
                               if (cvButton) {
                                   if (result.canDownloadCV === true || result.canDownloadCV === "TRUE") {
                                       cvButton.classList.remove("disabled");
                                       cvButton.style.pointerEvents = "auto";
                                       cvButton.style.opacity = "1";
-                                      cvButton.setAttribute("href", "assets/mon-cv.pdf"); // Ton lien secret vers le CV PDF !
-                                      cvButton.innerHTML = '<i class="fas fa-download me-2"></i>Download CV';
+                                      cvButton.setAttribute("href", "assets/mon-cv.pdf");
+                                      cvButton.innerHTML = '<i class="fas fa-download me-2"></i> Download CV';
                                   } else {
-                                      cvButton.innerHTML = '<i class="fas fa-lock me-2"></i>CV Access Denied';
+                                      cvButton.innerHTML = '<i class="fas fa-lock me-2"></i> CV Access Denied';
                                   }
                               }
                               
-                              // 5. Modifier le bouton en haut en bouton Logout rouge
+                              // Transformer le bouton en Logout
                               loginTrigger.textContent = "🔓 Logout (" + result.userName + ")";
                               loginTrigger.className = "nav-link py-3 px-0 px-lg-3 rounded text-danger fw-bold";
                               loginTrigger.removeAttribute("data-bs-toggle");
-                              loginTrigger.removeAttribute("data-bs-target");
                               loginTrigger.onclick = function() { location.reload(); };
-                              
                               accessCodeInput.value = "";
                           } else {
                               loginError.style.display = "block";
@@ -591,50 +442,75 @@
                       })
                       .catch(err => {
                           console.error(err);
-                          loginError.textContent = "Server error. Try again.";
+                          loginError.textContent = "Server error. Check connection.";
                           loginError.style.display = "block";
-                          submitLoginBtn.textContent = "Unlock Data";
+                          submitLoginBtn.textContent = "Unlock Portfolio";
                           submitLoginBtn.disabled = false;
                       });
                   });
               }
 
-
-              // === C. COOKIE BANNER MANAGEMENT ===
+              // Cookies & Analytics
+              const GA_TRACKING_ID = 'G-92GKHEX3C2';
               const banner = document.getElementById("cookie-banner");
               const saveBtn = document.getElementById("save-settings");
               const acceptAllBtn = document.getElementById("accept-all");
-        
               const consentAnalytics = getCookie("consent_analytics");
               const consentTranslate = getCookie("consent_translate");
         
-              if (consentAnalytics === null && consentTranslate === null) {
-                  banner.style.display = "block";
-              } else {
+              if (consentAnalytics === null && consentTranslate === null) banner.style.display = "block";
+              else {
                   if (consentAnalytics === "true") loadGoogleAnalytics();
                   if (consentTranslate === "true") loadGoogleTranslate();
               }
           
               acceptAllBtn.addEventListener("click", function() {
-                  setCookie("consent_analytics", "true", 365);
-                  setCookie("consent_translate", "true", 365);
-                  banner.style.display = "none";
-                  loadGoogleAnalytics();
-                  loadGoogleTranslate();
+                  setCookie("consent_analytics", "true", 365); setCookie("consent_translate", "true", 365);
+                  banner.style.display = "none"; loadGoogleAnalytics(); loadGoogleTranslate();
               });
           
               saveBtn.addEventListener("click", function() {
                   const analyticsChecked = document.getElementById("consent-analytics").checked;
                   const translateChecked = document.getElementById("consent-translate").checked;
-            
                   setCookie("consent_analytics", analyticsChecked ? "true" : "false", 365);
                   setCookie("consent_translate", translateChecked ? "true" : "false", 365);
-            
                   banner.style.display = "none";
-            
-                  if (analyticsChecked) loadGoogleAnalytics();
-                  if (translateChecked) loadGoogleTranslate();
+                  if (analyticsChecked) loadGoogleAnalytics(); if (translateChecked) loadGoogleTranslate();
               });
+
+              function loadGoogleAnalytics() {
+                  if (window.gtag) return;
+                  const gaScript = document.createElement('script'); gaScript.async = true;
+                  gaScript.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_TRACKING_ID;
+                  document.head.appendChild(gaScript); window.dataLayer = window.dataLayer || [];
+                  window.gtag = function() { dataLayer.push(arguments); }; gtag('js', new Date()); gtag('config', GA_TRACKING_ID);
+              }
+          
+              function loadGoogleTranslate() {
+                  if (window.googleTranslateElementInit) return;
+                  const translateDiv = document.getElementById("google_translate_element");
+                  if (translateDiv) { translateDiv.style.display = "block"; translateDiv.style.margin = "10px text-center"; }
+                  window.googleTranslateElementInit = function() {
+                      new google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: true }, 'google_translate_element');
+                  };
+                  const gtScript = document.createElement('script'); gtScript.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+                  document.head.appendChild(gtScript);
+              }
+          
+              function setCookie(name, value, days) {
+                  let expires = "";
+                  if (days) { const date = new Date(); date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); expires = "; expires=" + date.toUTCString(); }
+                  document.cookie = name + "=" + (value || "") + expires + "; path=/; Secure; SameSite=Strict";
+              }
+          
+              function getCookie(name) {
+                  const nameEQ = name + "="; const ca = document.cookie.split(';');
+                  for(let i=0; i < ca.length; i++) {
+                      let c = ca[i]; while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                  }
+                  return null;
+              }
           });
         </script>
     </body>
