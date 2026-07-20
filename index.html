@@ -102,6 +102,20 @@
                 background-color: #1abc9c;
                 color: #fff;
             }
+            
+            /* Hauteur fixe constante pour TOUS les blocs projets + fond de secours */
+            .portfolio-item {
+                height: 280px !important;
+                position: relative;
+                background-color: #2c3e50; /* Couleur sombre si pas d'image */
+            }
+
+            /* L'image s'adapte toujours à 100% du bloc */
+            .portfolio-item img {
+                height: 100% !important;
+                width: 100% !important;
+                object-fit: cover;
+            }
 
         </style>
     </head>
@@ -594,37 +608,45 @@
 
                   // 3. Rendu des cartes de projets
                   paginatedProjects.forEach(proj => {
-                      const originalIndex = globalProjectsData.indexOf(proj);
-                      const isAllowed = proj.isPublic || (userAllowedProjects !== null && userAllowedProjects[originalIndex] === true);
-                      const col = document.createElement("div");
-                      col.className = "col-md-6 col-lg-4 mb-5";
-                      
-                      if (isAllowed) {
-                          col.innerHTML = `
-                              <div class="portfolio-item mx-auto shadow-sm" data-bs-toggle="modal" data-bs-target="#dynamicPortfolioModal"
-                                   data-title="${proj.title}" data-img="${proj.img}" data-text="${encodeURIComponent(proj.text || '')}">
-                                  <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                      <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
-                                          <i class="fas fa-plus fa-3x mb-3"></i>
-                                          <div class="text-uppercase text-white format-rich-text portfolio-caption-text">${formatSheetText(proj.preview) || 'View Project'}</div>
-                                      </div>
+                  const originalIndex = globalProjectsData.indexOf(proj);
+                  const isAllowed = proj.isPublic || (userAllowedProjects !== null && userAllowedProjects[originalIndex] === true);
+                              
+                  // 1. On définit l'image par défaut si la case Google Sheet est vide
+                  const projectImage = (proj.img && proj.img.trim() !== "") 
+                      ? proj.img 
+                      : "https://placehold.co/600x400/2c3e50/ffffff?text=" + encodeURIComponent(proj.title);
+                              
+                  const col = document.createElement("div");
+                  col.className = "col-md-6 col-lg-4 mb-5";
+                              
+                  if (isAllowed) {
+                      col.innerHTML = `
+                          <div class="portfolio-item mx-auto shadow-sm" data-bs-toggle="modal" data-bs-target="#dynamicPortfolioModal"
+                               data-title="${proj.title}" data-img="${projectImage}" data-text="${encodeURIComponent(proj.text || '')}">
+                              <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                  <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
+                                      <i class="fas fa-plus fa-3x mb-3"></i>
+                                      <div class="text-uppercase text-white format-rich-text portfolio-caption-text">${formatSheetText(proj.preview) || 'View Project'}</div>
                                   </div>
-                                  <img class="img-fluid w-100" src="${proj.img}" alt="${proj.title}" style="height: 280px; object-fit: cover;" />
-                              </div>`;
-                      } else {
-                          col.innerHTML = `
-                              <div class="portfolio-item mx-auto shadow-sm locked" title="You do not have permission to view this project">
-                                  <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100" style="opacity: 1;">
-                                      <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
-                                          <i class="fas fa-lock fa-3x mb-3"></i>
-                                          <div class="text-uppercase text-white portfolio-caption-text">Access Restricted</div>
-                                      </div>
+                              </div>
+                              <!-- 2. On utilise projectImage ici à la place de proj.img -->
+                              <img class="img-fluid w-100" src="${projectImage}" alt="${proj.title}" style="height: 280px; object-fit: cover;" />
+                          </div>`;
+                  } else {
+                      col.innerHTML = `
+                          <div class="portfolio-item mx-auto shadow-sm locked" title="You do not have permission to view this project">
+                              <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100" style="opacity: 1;">
+                                  <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
+                                      <i class="fas fa-lock fa-3x mb-3"></i>
+                                      <div class="text-uppercase text-white portfolio-caption-text">Access Restricted</div>
                                   </div>
-                                  <img class="img-fluid w-100" src="${proj.img}" alt="Locked Project" style="height: 280px; object-fit: cover;" />
-                              </div>`;
-                      }
-                      grid.appendChild(col);
-                  });
+                              </div>
+                              <!-- 2. On utilise projectImage ici aussi -->
+                              <img class="img-fluid w-100" src="${projectImage}" alt="Locked Project" style="height: 280px; object-fit: cover;" />
+                          </div>`;
+                  }
+                  grid.appendChild(col);
+              });
 
                   // 4. Rendu de la barre de pagination
                   renderPaginationControls(totalPages);
