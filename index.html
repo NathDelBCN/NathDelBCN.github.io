@@ -20,15 +20,35 @@
             /* Préserve la mise en forme du tableur */
             .format-rich-text { white-space: pre-line; word-wrap: break-word; }
             
+            /* --- STYLES SKILLS --- */
+            .skill-card { background: #fff; border-radius: 12px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; transition: all 0.3s ease; border: 2px solid transparent; cursor: pointer; }
+            .skill-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-color: #1abc9c; }
+            .skill-card:hover .skill-category-title { color: #1abc9c; }
+            .progress { height: 12px; border-radius: 6px; background-color: #e9ecef; }
+            .progress-bar { background-color: #1abc9c; transition: width 1.5s ease-in-out; }
+            .skill-category-title { color: #2c3e50; border-bottom: 3px solid #1abc9c; display: inline-block; padding-bottom: 5px; margin-bottom: 25px; transition: color 0.3s ease; }
+            .skill-item-row { transition: background-color 0.2s; padding: 6px 8px; border-radius: 6px; }
+            .skill-item-row:hover { background-color: #f8f9fa; }
+            
+            /* --- STYLES RECHERCHE & FILTRES --- */
+            .filter-btn { border-radius: 30px; padding: 8px 18px; font-weight: 600; font-size: 0.85rem; transition: all 0.2s ease; margin: 4px; border: 2px solid #2c3e50; background: transparent; color: #2c3e50; }
+            .filter-btn:hover, .filter-btn.active { background: #2c3e50; color: #fff; transform: scale(1.05); }
+            .filter-btn.active { border-color: #1abc9c; background: #1abc9c; color: #fff; }
+            .search-box { max-width: 450px; margin: 0 auto; position: relative; }
+            .search-box input { border-radius: 30px; padding-left: 45px; border: 2px solid #ced4da; box-shadow: none; transition: all 0.3s; }
+            .search-box input:focus { border-color: #1abc9c; box-shadow: 0 0 10px rgba(26,188,156,0.2); }
+            .search-box .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #6c757d; }
+            
+            /* --- STYLES PAGINATION --- */
+            .pagination-btn { width: 45px; height: 45px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid #2c3e50; background: #fff; color: #2c3e50; margin: 0 4px; transition: all 0.2s; cursor: pointer; }
+            .pagination-btn:hover:not(.disabled) { background: #1abc9c; border-color: #1abc9c; color: #fff; transform: scale(1.1); }
+            .pagination-btn.active { background: #2c3e50; border-color: #2c3e50; color: #fff; }
+            .pagination-btn.disabled { opacity: 0.4; cursor: not-allowed; border-color: #ced4da; color: #6c757d; }
+            
             /* --- WIDGET GOOGLE TRANSLATE PARFAITEMENT INTÉGRÉ --- */
-            /* 1. Bloque la barre supérieure de Google */
             body { top: 0px !important; }
             .goog-te-banner-frame { display: none !important; }
-            
-            /* 2. Positionne le conteneur en bas à droite */
             #translate-widget-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
-            
-            /* 3. Force le petit rectangle (empêche la barre géante) */
             #google_translate_element { 
                 display: none; 
                 background: #2c3e50; 
@@ -36,18 +56,14 @@
                 border-radius: 10px; 
                 box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
                 margin-bottom: 10px; 
-                width: max-content !important; /* Force la taille minimale */
+                width: max-content !important;
                 max-width: 300px;
                 overflow: hidden;
             }
             #google_translate_element div { display: inline-block !important; width: auto !important; }
-            
-            /* 4. Cache les textes indésirables ("Traduction", "Powered by Google") */
             .goog-te-gadget { font-family: 'Montserrat', sans-serif !important; font-size: 0px !important; color: transparent !important; }
             .goog-te-gadget img { display: none !important; }
             .goog-logo-link { display: none !important; }
-            
-            /* 5. Transforme le menu déroulant avec les couleurs de ton site */
             .goog-te-gadget .goog-te-combo {
                 font-family: 'Montserrat', sans-serif !important;
                 font-size: 14px !important;
@@ -61,12 +77,9 @@
                 margin: 0 !important;
             }
             .goog-te-gadget .goog-te-combo:hover { background-color: #1abc9c !important; color: #2c3e50 !important; }
-
-            /* Boutons de contrôle Traduction */
             .translate-controls { display: flex; gap: 10px; }
             #translate-toggle-btn { background: #2c3e50; color: #fff; border: 2px solid #1abc9c; border-radius: 30px; padding: 8px 16px; font-size: 0.85rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
             #translate-toggle-btn:hover { background: #1abc9c; color: #2c3e50; }
-            
             #translate-reset-btn { background: #e74c3c; color: #fff; border: 2px solid #c0392b; border-radius: 30px; padding: 8px 16px; font-size: 0.85rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: all 0.3s ease; display: none; align-items: center; gap: 8px; }
             #translate-reset-btn:hover { background: #c0392b; }
         </style>
@@ -85,7 +98,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="skills.html">Skills</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#skills">Skills</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li>
                         <li class="nav-item mx-0 mx-lg-1">
@@ -122,10 +135,51 @@
                     <div class="divider-custom-line"></div>
                 </div>
                 
+                <!-- Barre de Recherche et Filtres par Hashtag -->
+                <div class="mb-5">
+                    <div class="search-box mb-4">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="projectSearchInput" class="form-control form-control-lg" placeholder="Search projects by name, keyword or #hashtag..." />
+                    </div>
+                    <div class="text-center" id="project-filters">
+                        <button class="filter-btn active" data-filter="all"><i class="fas fa-layer-group me-1"></i> All Projects</button>
+                        <!-- Les boutons de filtre hashtag seront injectés dynamiquement ici -->
+                    </div>
+                </div>
+                
+                <!-- Grille des projets (3x6 max = 18 par page) -->
                 <div class="row justify-content-center" id="portfolio-grid">
                     <div class="col-12 text-center py-5">
                         <div class="spinner-border text-primary" role="status"></div>
                         <p class="mt-2 text-muted fw-bold">Loading projects from database...</p>
+                    </div>
+                </div>
+                
+                <!-- Contrôles de Pagination -->
+                <div class="d-flex justify-content-center align-items-center mt-4" id="portfolio-pagination" style="display: none !important;">
+                    <!-- Les boutons de pagination seront injectés ici -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- Skills Section (Intégrée) -->
+        <section class="page-section bg-light" id="skills">
+            <div class="container">
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">My Skills</h2>
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-laptop-code"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                
+                <p class="text-center lead mb-5 text-muted">
+                    Click on any skill category or competency card below to automatically filter and explore related portfolio projects!
+                </p>
+                
+                <div id="skills-container" class="row justify-content-center">
+                    <div class="col-12 text-center py-5">
+                        <div class="spinner-border text-primary" role="status"></div>
+                        <p class="mt-2 text-muted fw-bold">Loading skills from database...</p>
                     </div>
                 </div>
             </div>
@@ -306,6 +360,13 @@
 
           let globalProjectsData = []; 
           let userAllowedProjects = null; 
+          
+          // État pour les filtres et la pagination (Max 3x6 = 18 par page)
+          const ITEMS_PER_PAGE = 18;
+          let currentPage = 1;
+          let currentFilterTag = "all";
+          let currentSearchQuery = "";
+          let availableHashtags = new Set();
 
           function formatSheetText(text) {
               if (!text) return "";
@@ -356,6 +417,7 @@
 
               updateStudentInfo(); 
 
+              // --- 1. CHARGEMENT DES PROJETS ---
               fetch(APPS_SCRIPT_URL, {
                   method: "POST",
                   body: JSON.stringify({ action: "loadProjects" })
@@ -364,6 +426,7 @@
               .then(result => {
                   if (result.success && result.projects) {
                       globalProjectsData = result.projects;
+                      extractHashtagsAndBuildFilters();
                       renderProjectsGrid();
                   } else {
                       document.getElementById("portfolio-grid").innerHTML = `<p class="text-danger fw-bold">Failed to load projects.</p>`;
@@ -389,12 +452,133 @@
                   document.getElementById("portfolio-grid").innerHTML = `<p class="text-muted">Projects offline. Please check API connection.</p>`;
               });
 
+              // --- 2. CHARGEMENT DES COMPÉTENCES (SKILLS) ---
+              fetch(APPS_SCRIPT_URL, {
+                  method: "POST",
+                  body: JSON.stringify({ action: "loadSkills" })
+              })
+              .then(response => response.json())
+              .then(result => {
+                  if (result.success && result.skills && result.skills.length > 0) {
+                      renderSkills(result.skills);
+                  } else {
+                      document.getElementById("skills-container").innerHTML = `<div class="col-12 text-center"><p class="alert alert-warning">No skills found. Please add data to the 'Skills' tab in Google Sheets.</p></div>`;
+                  }
+              })
+              .catch(err => {
+                  console.error("Erreur chargement skills:", err);
+                  document.getElementById("skills-container").innerHTML = `<div class="col-12 text-center"><p class="text-danger">Failed to load skills. Please check connection.</p></div>`;
+              });
+
+              // EXTRACTION DES HASHTAGS POUR CRÉER LES FILTRES
+              function extractHashtagsAndBuildFilters() {
+                  availableHashtags.clear();
+                  globalProjectsData.forEach(proj => {
+                      if (proj.hashtag) {
+                          // Découpe par saut de ligne, virgule ou espace si ça commence par #
+                          const tags = proj.hashtag.split(/\\n|\n|,|;/).map(t => t.trim()).filter(t => t !== "");
+                          tags.forEach(tag => {
+                              let cleanTag = tag.startsWith("#") ? tag : "#" + tag;
+                              availableHashtags.add(cleanTag);
+                          });
+                      }
+                  });
+
+                  const filterContainer = document.getElementById("project-filters");
+                  // Garde le bouton "All Projects"
+                  filterContainer.innerHTML = `<button class="filter-btn active" data-filter="all"><i class="fas fa-layer-group me-1"></i> All Projects</button>`;
+                  
+                  availableHashtags.forEach(tag => {
+                      const btn = document.createElement("button");
+                      btn.className = "filter-btn";
+                      btn.setAttribute("data-filter", tag.toLowerCase());
+                      btn.innerHTML = `<i class="fas fa-tag me-1"></i> ${tag}`;
+                      btn.addEventListener("click", () => applyFilter(tag.toLowerCase(), btn));
+                      filterContainer.appendChild(btn);
+                  });
+
+                  // Event sur le bouton All
+                  filterContainer.querySelector('[data-filter="all"]').addEventListener("click", function() {
+                      applyFilter("all", this);
+                  });
+              }
+
+              // APPLICATION DU FILTRE HASHTAG
+              function applyFilter(filterValue, buttonElement) {
+                  currentFilterTag = filterValue;
+                  currentPage = 1; // Retour à la page 1
+
+                  // Mettre à jour l'état actif des boutons
+                  document.querySelectorAll("#project-filters .filter-btn").forEach(btn => btn.classList.remove("active"));
+                  if (buttonElement) {
+                      buttonElement.classList.add("active");
+                  } else {
+                      // Si déclenché depuis une carte skill
+                      const targetBtn = Array.from(document.querySelectorAll("#project-filters .filter-btn"))
+                                           .find(b => b.getAttribute("data-filter") === filterValue);
+                      if (targetBtn) targetBtn.classList.add("active");
+                  }
+
+                  renderProjectsGrid();
+              }
+
+              // EVENT RECHERCHE EN TEMPS RÉEL
+              const searchInput = document.getElementById("projectSearchInput");
+              if (searchInput) {
+                  searchInput.addEventListener("input", function() {
+                      currentSearchQuery = this.value.trim().toLowerCase();
+                      currentPage = 1;
+                      renderProjectsGrid();
+                  });
+              }
+
+              // FONCTION PRINCIPALE D'AFFICHAGE ET PAGINATION DE LA GRILLE (3x6 = 18 max)
               function renderProjectsGrid() {
                   const grid = document.getElementById("portfolio-grid");
+                  const paginationContainer = document.getElementById("portfolio-pagination");
                   grid.innerHTML = ""; 
 
-                  globalProjectsData.forEach((proj, index) => {
+                  // 1. Filtrer les projets
+                  const filteredProjects = globalProjectsData.filter((proj, index) => {
                       const isAllowed = proj.isPublic || (userAllowedProjects !== null && userAllowedProjects[index] === true);
+                      
+                      // Vérification du filtre hashtag
+                      let matchesTag = true;
+                      if (currentFilterTag !== "all") {
+                          const projTags = proj.hashtag ? proj.hashtag.toLowerCase().split(/\\n|\n|,|;/).map(t => t.trim()) : [];
+                          const cleanFilter = currentFilterTag.startsWith("#") ? currentFilterTag : "#" + currentFilterTag;
+                          matchesTag = projTags.includes(cleanFilter) || projTags.includes(cleanFilter.replace("#", ""));
+                      }
+
+                      // Vérification de la barre de recherche
+                      let matchesSearch = true;
+                      if (currentSearchQuery !== "") {
+                          const titleMatch = proj.title && proj.title.toLowerCase().includes(currentSearchQuery);
+                          const textMatch = proj.text && proj.text.toLowerCase().includes(currentSearchQuery);
+                          const previewMatch = proj.preview && proj.preview.toLowerCase().includes(currentSearchQuery);
+                          const tagMatch = proj.hashtag && proj.hashtag.toLowerCase().includes(currentSearchQuery);
+                          matchesSearch = titleMatch || textMatch || previewMatch || tagMatch;
+                      }
+
+                      return matchesTag && matchesSearch;
+                  });
+
+                  if (filteredProjects.length === 0) {
+                      grid.innerHTML = `<div class="col-12 text-center py-5"><p class="alert alert-info fs-5"><i class="fas fa-info-circle me-2"></i>No projects match your search or filter criteria.</p></div>`;
+                      paginationContainer.style.display = "none";
+                      return;
+                  }
+
+                  // 2. Calculer la pagination (18 projets par page max)
+                  const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
+                  if (currentPage > totalPages) currentPage = totalPages;
+                  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+                  const paginatedProjects = filteredProjects.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+                  // 3. Rendu des cartes de projets
+                  paginatedProjects.forEach(proj => {
+                      const originalIndex = globalProjectsData.indexOf(proj);
+                      const isAllowed = proj.isPublic || (userAllowedProjects !== null && userAllowedProjects[originalIndex] === true);
                       const col = document.createElement("div");
                       col.className = "col-md-6 col-lg-4 mb-5";
                       
@@ -424,8 +608,124 @@
                       }
                       grid.appendChild(col);
                   });
+
+                  // 4. Rendu de la barre de pagination avec flèches
+                  renderPaginationControls(totalPages);
               }
 
+              // RENDU DE LA BARRE DE PAGINATION
+              function renderPaginationControls(totalPages) {
+                  const paginationContainer = document.getElementById("portfolio-pagination");
+                  paginationContainer.innerHTML = "";
+
+                  if (totalPages <= 1) {
+                      paginationContainer.style.setProperty("display", "none", "important");
+                      return;
+                  }
+
+                  paginationContainer.style.setProperty("display", "flex", "important");
+
+                  // Flèche Précédent
+                  const prevBtn = document.createElement("button");
+                  prevBtn.className = `pagination-btn ${currentPage === 1 ? 'disabled' : ''}`;
+                  prevBtn.innerHTML = `<i class="fas fa-chevron-left"></i>`;
+                  prevBtn.title = "Previous Page";
+                  if (currentPage > 1) {
+                      prevBtn.onclick = () => {
+                          currentPage--;
+                          renderProjectsGrid();
+                          document.getElementById("portfolio").scrollIntoView({ behavior: 'smooth' });
+                      };
+                  }
+                  paginationContainer.appendChild(prevBtn);
+
+                  // Numéros de page
+                  for (let p = 1; p <= totalPages; p++) {
+                      const pageBtn = document.createElement("button");
+                      pageBtn.className = `pagination-btn ${p === currentPage ? 'active' : ''}`;
+                      pageBtn.textContent = p;
+                      pageBtn.onclick = () => {
+                          if (currentPage !== p) {
+                              currentPage = p;
+                              renderProjectsGrid();
+                              document.getElementById("portfolio").scrollIntoView({ behavior: 'smooth' });
+                          }
+                      };
+                      paginationContainer.appendChild(pageBtn);
+                  }
+
+                  // Flèche Suivant
+                  const nextBtn = document.createElement("button");
+                  nextBtn.className = `pagination-btn ${currentPage === totalPages ? 'disabled' : ''}`;
+                  nextBtn.innerHTML = `<i class="fas fa-chevron-right"></i>`;
+                  nextBtn.title = "Next Page";
+                  if (currentPage < totalPages) {
+                      nextBtn.onclick = () => {
+                          currentPage++;
+                          renderProjectsGrid();
+                          document.getElementById("portfolio").scrollIntoView({ behavior: 'smooth' });
+                      };
+                  }
+                  paginationContainer.appendChild(nextBtn);
+              }
+
+              // --- 3. FONCTION D'AFFICHAGE DES COMPÉTENCES (SKILLS) INTÉGRÉES ---
+              function renderSkills(skills) {
+                  const container = document.getElementById("skills-container");
+                  container.innerHTML = ""; 
+
+                  // Regrouper les skills par catégorie
+                  const categories = {};
+                  skills.forEach(skill => {
+                      const cat = skill.category || "General";
+                      if (!categories[cat]) categories[cat] = [];
+                      categories[cat].push(skill);
+                  });
+
+                  // Créer le HTML pour chaque catégorie
+                  for (const [categoryName, skillsList] of Object.entries(categories)) {
+                      const col = document.createElement("div");
+                      col.className = "col-lg-6 mb-4";
+                      
+                      let skillsHtml = "";
+                      skillsList.forEach(s => {
+                          const level = Math.min(Math.max(parseInt(s.level) || 50, 0), 100);
+                          skillsHtml += `
+                              <div class="mb-4 skill-item-row" title="Click to filter projects by #${categoryName}">
+                                  <div class="d-flex justify-content-between align-items-center mb-1">
+                                      <span class="fw-bold text-dark fs-5"><i class="fas fa-check-circle text-primary me-2"></i>${s.name}</span>
+                                      <span class="badge bg-secondary">${s.experience || level + '%'}</span>
+                                  </div>
+                                  <div class="progress shadow-sm">
+                                      <div class="progress-bar" role="progressbar" style="width: ${level}%;" aria-valuenow="${level}" aria-valuemin="0" aria-valuemax="100"></div>
+                                  </div>
+                              </div>
+                          `;
+                      });
+
+                      col.innerHTML = `
+                          <div class="skill-card h-100" title="Click to view all projects tagged with #${categoryName}">
+                              <div class="d-flex justify-content-between align-items-center">
+                                  <h4 class="skill-category-title text-uppercase fw-bold"><i class="fas fa-layer-group me-2"></i>${categoryName}</h4>
+                                  <span class="badge bg-primary rounded-pill mb-4"><i class="fas fa-filter me-1"></i> Filter Projects</span>
+                              </div>
+                              ${skillsHtml}
+                          </div>
+                      `;
+                      
+                      // Au clic sur une carte de compétence, on applique le filtre de la catégorie dans le Portfolio
+                      col.querySelector(".skill-card").addEventListener("click", function() {
+                          const tagToFilter = "#" + categoryName;
+                          applyFilter(tagToFilter.toLowerCase());
+                          // On fait défiler doucement jusqu'à la section portfolio
+                          document.getElementById("portfolio").scrollIntoView({ behavior: 'smooth' });
+                      });
+
+                      container.appendChild(col);
+                  }
+              }
+
+              // MODALE DYNAMIQUE
               const dynamicModal = document.getElementById('dynamicPortfolioModal');
               if (dynamicModal) {
                   dynamicModal.addEventListener('show.bs.modal', function (event) {
@@ -437,6 +737,7 @@
                   });
               }
 
+              // GESTION DU LOGIN
               const submitLoginBtn = document.getElementById("submitLoginBtn");
               const accessCodeInput = document.getElementById("accessCodeInput");
               const loginError = document.getElementById("login-error");
@@ -565,12 +866,10 @@
 
                   if (container) container.style.display = "flex";
                   
-                  // Affiche le bouton Original (Reset) si une traduction est déjà active en mémoire
                   if (document.cookie.indexOf('googtrans') !== -1 && resetBtn) {
                       resetBtn.style.display = 'flex';
                   }
 
-                  // Action du bouton Toggle Translate
                   if (toggleBtn && translateDiv) {
                       toggleBtn.addEventListener("click", function() {
                           if (translateDiv.style.display === "none" || translateDiv.style.display === "") {
@@ -583,7 +882,6 @@
                       });
                   }
 
-                  // Action du bouton Reset (Annuler Traduction)
                   if (resetBtn) {
                       resetBtn.addEventListener("click", function() {
                           document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
