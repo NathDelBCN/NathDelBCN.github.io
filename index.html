@@ -138,7 +138,7 @@
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <p class="masthead-subheading font-weight-light mb-0 fs-5 fs-md-4" id="student-info">Student at Angeleta Ferrer i Sensat — 15 years old</p>
+                <p class="masthead-subheading font-weight-light mb-0 fs-5 fs-md-4" id="student-info">High School Student</p>
             </div>
         </header>
         
@@ -220,7 +220,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-8 text-center">
                         <p class="lead format-rich-text" style="font-size: 1.25rem;">
-                            Hi! I'm Nathaël<span id="about-lastname"></span>, a <span id="about-age">15</span>-year-old <span id="about-school-text">student at Angeleta Ferrer i Sensat</span> passionate about programming and web development. 
+                            Hi! I'm Nathaël<span id="about-lastname"></span>, a <span id="about-age"></span>-year-old <span id="about-school-text">high school student</span> passionate about programming and web development. 
                             This portfolio showcases my personal projects, skills, and coding journey. 
                             Feel free to explore my work and contact me if you want to collaborate!
                         </p>
@@ -430,13 +430,26 @@
 
                   const isVacations = (currentMonth === 6 && currentDay >= 20) || (currentMonth === 7) || (currentMonth === 8);
                   
+                  // Text variables handling default vs specific school
+                  let schoolTextForAbout = "";
+                  let schoolTextForHeader = "";
+                  
+                  if (schoolName === "High School Student") {
+                      schoolTextForAbout = "high school student";
+                      schoolTextForHeader = "High School Student";
+                  } else {
+                      schoolTextForAbout = `student at ${schoolName}`;
+                      schoolTextForHeader = `Student at ${schoolName}`;
+                  }
+
                   if (aboutSchoolText) {
-                      aboutSchoolText.textContent = (schoolName !== "High School Student") ? `student at ${schoolName}` : "student at Angeleta Ferrer i Sensat";
+                      aboutSchoolText.textContent = schoolTextForAbout;
                   }
 
                   if (!infoElement) return;
+                  
                   if (isVacations) {
-                      infoElement.textContent = `Student at Angeleta Ferrer i Sensat — ${age} years old`;
+                      infoElement.innerHTML = `${schoolTextForHeader} &mdash; ${age} years old`;
                       return; 
                   }
 
@@ -446,9 +459,12 @@
                   else if (schoolYearStart === 2026) classe = "4th Grade ESO";
                   else if (schoolYearStart === 2027) classe = "1st Year of BATXILLERAT";
                   else if (schoolYearStart === 2028) classe = "2nd Year of BATXILLERAT";
-                  else if (schoolYearStart > 2028) { infoElement.textContent = `Student at Angeleta Ferrer i Sensat — ${age} years old`; return; }
+                  else if (schoolYearStart > 2028) { 
+                      infoElement.innerHTML = `${schoolTextForHeader} &mdash; ${age} years old`; 
+                      return; 
+                  }
 
-                  infoElement.textContent = `Student at Angeleta Ferrer i Sensat — ${age} years old — ${classe}`;
+                  infoElement.innerHTML = `${schoolTextForHeader} &mdash; ${age} years old &mdash; ${classe}`;
               }
 
               updateStudentInfo(); 
@@ -496,9 +512,6 @@
                       if (projectsResult.siteLogo && projectsResult.siteLogo.trim() !== "") {
                           const favicon = document.getElementById("site-favicon");
                           if (favicon) favicon.href = projectsResult.siteLogo;
-                      }
-                      if (projectsResult.data && projectsResult.data.school) {
-                          updateStudentInfo(projectsResult.data.school);
                       }
 
                   } else {
@@ -806,7 +819,9 @@
 
                       col.innerHTML = `
                           <div class="skill-card h-100" title="Click to view all projects tagged with ${categoryName}">
-                              <h4 class="skill-category-title text-uppercase fw-bold"><i class="fas fa-layer-group me-2"></i>${categoryName}</h4>
+                              <h4 class="skill-category-title text-uppercase fw-bold" data-category-name="${cleanParam(categoryName)}" title="Add ${categoryName} to filters">
+                                  <i class="fas fa-layer-group me-2"></i>${categoryName}
+                              </h4>
                               ${skillsHtml}
                           </div>
                       `;
