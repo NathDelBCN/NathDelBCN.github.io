@@ -53,14 +53,69 @@
             .filter-dropdown-box { min-width: 260px; width: 100%; flex: 1; }
             @media (min-width: 768px) { .filter-dropdown-box { width: auto; } }
             
-            .dropdown-menu { max-height: 280px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #1abc9c #2c3e50; }
+            /* Scrollbar et Bordures Arrondies du Menu Déroulant */
+            .dropdown-menu { 
+                max-height: 380px; 
+                overflow-y: auto; 
+                overflow-x: hidden; 
+                scrollbar-width: thin; 
+                scrollbar-color: #1abc9c transparent; 
+                border-radius: 1rem !important; 
+                padding: 15px !important; 
+                background-color: #2c3e50; 
+                min-width: 100%;
+            }
             .dropdown-menu::-webkit-scrollbar { width: 6px; }
-            .dropdown-menu::-webkit-scrollbar-track { background: #2c3e50; border-radius: 10px; }
+            .dropdown-menu::-webkit-scrollbar-track { background: transparent; margin: 15px 0; }
             .dropdown-menu::-webkit-scrollbar-thumb { background: #1abc9c; border-radius: 10px; }
             
-            .dropdown-menu .dropdown-item { color: #fff; border-radius: 0.5rem; padding: 10px 15px; font-weight: 600; transition: all 0.2s ease; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-            .dropdown-menu .dropdown-item:hover, .dropdown-menu .dropdown-item.active { background-color: #1abc9c; color: #fff; }
-            .dropdown-header { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #1abc9c !important; font-weight: bold; margin-top: 5px; }
+            /* Bouton "Clear Filters" en haut du menu */
+            .clear-filter-item {
+                background-color: #1abc9c !important;
+                color: #fff !important;
+                border-radius: 0.5rem;
+                font-weight: 700;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 20px;
+                margin-bottom: 10px;
+                transition: all 0.3s ease;
+                text-decoration: none;
+            }
+            .clear-filter-item:hover {
+                background-color: #128f76 !important;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 10px rgba(26,188,156,0.3);
+                color: #fff;
+            }
+
+            /* Éléments standards du menu */
+            .custom-dd-item {
+                color: #fff;
+                border-radius: 0.5rem;
+                padding: 10px 15px;
+                font-weight: 600;
+                transition: all 0.2s ease;
+                margin-bottom: 4px;
+                display: block;
+                text-decoration: none;
+            }
+            .custom-dd-item:hover, .custom-dd-item.active {
+                background-color: rgba(26, 188, 156, 0.2) !important;
+                color: #1abc9c !important;
+            }
+            .custom-dd-item.active .check-icon { opacity: 1 !important; color: #1abc9c; }
+            
+            /* En-têtes du menu */
+            .dropdown-header {
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                color: #1abc9c !important;
+                font-weight: 800;
+                padding: 5px 15px;
+            }
             
             /* --- BADGES FILTRES ACTIFS --- */
             .active-filter-badge { background-color: #1abc9c; color: white; padding: 8px 16px; border-radius: 50px; font-weight: bold; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
@@ -163,7 +218,7 @@
                         <button class="btn btn-secondary dropdown-toggle rounded-pill w-100 fw-bold shadow-sm d-flex justify-content-between align-items-center" type="button" id="dropdownFilterBtn" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="height: 55px; background-color: #2c3e50; border: 2px solid #2c3e50; padding: 0 25px;">
                             <span>📂 Filter Projects</span>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2" id="customFilterMenu" style="border-radius: 1rem; background-color: #2c3e50; min-width: 100%;">
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2" id="customFilterMenu">
                             <!-- Généré dynamiquement en JS -->
                         </ul>
                     </div>
@@ -352,7 +407,10 @@
                                     <img id="modal-dynamic-img" class="img-fluid rounded mb-4 shadow-lg" src="" alt="" style="max-height: 55vh; object-fit: contain; background: #fff; padding: 10px;" />
                                     
                                     <!-- ZONE DES PARAMÈTRES / SKILLS / CATEGORIES DU PROJET -->
-                                    <div id="modal-dynamic-tags" class="d-flex flex-wrap justify-content-center gap-2 mb-4"></div>
+                                    <div id="modal-dynamic-tags" class="d-flex flex-wrap justify-content-center gap-2 mb-3"></div>
+
+                                    <!-- ZONE DES LIENS DE TÉLÉCHARGEMENT CODE SOURCE -->
+                                    <div id="modal-dynamic-links" class="d-flex flex-wrap justify-content-center gap-3 mb-4"></div>
 
                                     <p id="modal-dynamic-text" class="mb-5 lead format-rich-text text-start px-md-5"></p>
                                     <button class="btn btn-primary btn-xl rounded-pill shadow" data-bs-dismiss="modal">
@@ -696,7 +754,8 @@
                           col.innerHTML = `
                               <div class="portfolio-item mx-auto shadow-sm" data-bs-toggle="modal" data-bs-target="#dynamicPortfolioModal"
                                    data-title="${proj.title}" data-img="${projectImage}" data-text="${encodeURIComponent(proj.text || '')}"
-                                   data-category="${encodeURIComponent(proj.category || '')}" data-skills="${encodeURIComponent(proj.skills || '')}">
+                                   data-category="${encodeURIComponent(proj.category || '')}" data-skills="${encodeURIComponent(proj.skills || '')}"
+                                   data-links="${encodeURIComponent(proj.links || '')}">
                                   <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                       <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
                                           <i class="fas fa-plus fa-3x mb-3"></i>
@@ -860,7 +919,7 @@
                   skillBars.forEach(bar => observer.observe(bar));
               }
 
-              // MODALE DYNAMIQUE AVEC INJECTION DES TAGS EN BAS
+              // MODALE DYNAMIQUE AVEC INJECTION DES TAGS ET LIENS
               const dynamicModal = document.getElementById('dynamicPortfolioModal');
               if (dynamicModal) {
                   dynamicModal.addEventListener('show.bs.modal', function (event) {
@@ -871,6 +930,7 @@
                       const rawText = decodeURIComponent(trigger.getAttribute('data-text') || '');
                       document.getElementById('modal-dynamic-text').innerHTML = formatSheetText(rawText);
 
+                      // 1. GESTION DES TAGS (Catégories et Compétences)
                       const rawCat = decodeURIComponent(trigger.getAttribute('data-category') || '');
                       const rawSk = decodeURIComponent(trigger.getAttribute('data-skills') || '');
                       const tagsContainer = document.getElementById('modal-dynamic-tags');
@@ -893,6 +953,24 @@
                               }
                           });
                       }
+                      
+                      // 2. GESTION DES LIENS DE CODE SOURCE (Nouvelle Fonctionnalité)
+                      const rawLinks = decodeURIComponent(trigger.getAttribute('data-links') || '');
+                      const linksContainer = document.getElementById('modal-dynamic-links');
+                      linksContainer.innerHTML = '';
+                      
+                      if (rawLinks) {
+                          rawLinks.split(';').forEach(linkPair => {
+                              const parts = linkPair.split(',');
+                              if (parts.length >= 2) {
+                                  const url = parts[0].trim();
+                                  const text = parts[1].trim();
+                                  if (url && text) {
+                                      linksContainer.innerHTML += `<a href="${url}" target="_blank" class="btn btn-outline-dark rounded-pill fw-bold shadow-sm px-4 py-2"><i class="fas fa-download me-2"></i> ${text}</a>`;
+                                  }
+                              }
+                          });
+                      }
                   });
               }
 
@@ -902,7 +980,6 @@
                   const modalInstance = bootstrap.Modal.getInstance(modalEl);
                   if (modalInstance) modalInstance.hide();
                   
-                  // On s'assure d'ajouter le filtre (s'il n'y est pas) au lieu de juste le toggler (effacer) par erreur
                   if (!currentFilters.has(filterVal)) {
                       applyFilter(filterVal);
                   }
