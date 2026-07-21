@@ -130,7 +130,7 @@
         <header class="masthead bg-primary text-white text-center">
             <div class="container d-flex align-items-center flex-column">
                 <img id="profile-avatar" class="masthead-avatar mb-4 mb-md-5" src="assets/img/avataaars.svg" alt="Avatar" style="width: 12rem; height: 12rem; object-fit: contain; filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.15));" />
-                <h1 class="masthead-heading text-uppercase mb-0" style="line-height: 1.3; font-weight: 800;">
+                <h1 class="masthead-heading text-uppercase mb-0" style="line-height: 1.3; font-weight: 800;" id="masthead-title">
                     Portfolio <span class="d-block text-white">Nathaël</span>
                 </h1>
                 <div class="divider-custom divider-light">
@@ -952,16 +952,17 @@
                               }
                               
                               if (result.data.lastName) {
+                                  // Update the page title and footer ONLY
                                   document.title = "Portfolio Nathaël " + result.data.lastName;
-                                  
-                                  const aboutLastName = document.getElementById("about-lastname");
-                                  if(aboutLastName) {
-                                      aboutLastName.textContent = " " + result.data.lastName;
-                                  }
                                   
                                   const copyLastName = document.getElementById("copy-lastname");
                                   if(copyLastName) {
                                       copyLastName.textContent = " " + result.data.lastName;
+                                  }
+                                  
+                                  const aboutLastName = document.getElementById("about-lastname");
+                                  if(aboutLastName) {
+                                      aboutLastName.textContent = " " + result.data.lastName;
                                   }
                               }
                               
