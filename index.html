@@ -53,14 +53,69 @@
             .filter-dropdown-box { min-width: 260px; width: 100%; flex: 1; }
             @media (min-width: 768px) { .filter-dropdown-box { width: auto; } }
             
-            .dropdown-menu { max-height: 280px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #1abc9c #2c3e50; }
+            /* Scrollbar et Bordures Arrondies du Menu Déroulant */
+            .dropdown-menu { 
+                max-height: 380px; 
+                overflow-y: auto; 
+                overflow-x: hidden; 
+                scrollbar-width: thin; 
+                scrollbar-color: #1abc9c transparent; 
+                border-radius: 1rem !important; 
+                padding: 15px !important; 
+                background-color: #2c3e50; 
+                min-width: 100%;
+            }
             .dropdown-menu::-webkit-scrollbar { width: 6px; }
-            .dropdown-menu::-webkit-scrollbar-track { background: #2c3e50; border-radius: 10px; }
+            .dropdown-menu::-webkit-scrollbar-track { background: transparent; margin: 15px 0; }
             .dropdown-menu::-webkit-scrollbar-thumb { background: #1abc9c; border-radius: 10px; }
             
-            .dropdown-menu .dropdown-item { color: #fff; border-radius: 0.5rem; padding: 10px 15px; font-weight: 600; transition: all 0.2s ease; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-            .dropdown-menu .dropdown-item:hover, .dropdown-menu .dropdown-item.active { background-color: #1abc9c; color: #fff; }
-            .dropdown-header { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #1abc9c !important; font-weight: bold; margin-top: 5px; }
+            /* Bouton "Clear Filters" en haut du menu */
+            .clear-filter-item {
+                background-color: #1abc9c !important;
+                color: #fff !important;
+                border-radius: 0.5rem;
+                font-weight: 700;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 20px;
+                margin-bottom: 10px;
+                transition: all 0.3s ease;
+                text-decoration: none;
+            }
+            .clear-filter-item:hover {
+                background-color: #128f76 !important;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 10px rgba(26,188,156,0.3);
+                color: #fff;
+            }
+
+            /* Éléments standards du menu */
+            .custom-dd-item {
+                color: #fff;
+                border-radius: 0.5rem;
+                padding: 10px 15px;
+                font-weight: 600;
+                transition: all 0.2s ease;
+                margin-bottom: 4px;
+                display: block;
+                text-decoration: none;
+            }
+            .custom-dd-item:hover, .custom-dd-item.active {
+                background-color: rgba(26, 188, 156, 0.2) !important;
+                color: #1abc9c !important;
+            }
+            .custom-dd-item.active .check-icon { opacity: 1 !important; color: #1abc9c; }
+            
+            /* En-têtes du menu */
+            .dropdown-header {
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                color: #1abc9c !important;
+                font-weight: 800;
+                padding: 5px 15px;
+            }
             
             /* --- BADGES FILTRES ACTIFS --- */
             .active-filter-badge { background-color: #1abc9c; color: white; padding: 8px 16px; border-radius: 50px; font-weight: bold; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
@@ -181,7 +236,6 @@
                         <i class="fas fa-search search-icon"></i>
                     </div>
                     <div class="filter-dropdown-box dropdown">
-                        <!-- data-bs-auto-close="outside" permet de cliquer plusieurs fois sans que ça se ferme -->
                         <button class="btn btn-secondary dropdown-toggle rounded-pill w-100 fw-bold shadow-sm d-flex justify-content-between align-items-center" type="button" id="dropdownFilterBtn" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="height: 55px; background-color: #2c3e50; border: 2px solid #2c3e50; padding: 0 25px;">
                             <span>📂 Filter Projects</span>
                         </button>
@@ -456,7 +510,6 @@
 
                   const isVacations = (currentMonth === 6 && currentDay >= 20) || (currentMonth === 7) || (currentMonth === 8);
                   
-                  // Text variables handling default vs specific school
                   let schoolTextForAbout = "";
                   let schoolTextForHeader = "";
                   
@@ -549,7 +602,6 @@
                   document.getElementById("portfolio-grid").innerHTML = `<p class="text-muted">Loading error. Check connection.</p>`;
               });
 
-              // CRÉER LE MENU DÉROULANT DES SÉLECTIONS
               function buildDropdownMenu() {
                   const menu = document.getElementById("customFilterMenu");
                   if (!menu) return;
@@ -596,10 +648,9 @@
                       });
                   });
 
-                  updateFilterUI(); // Initial check
+                  updateFilterUI();
               }
 
-              // GESTION DU FILTRAGE MULTIPLE
               window.applyFilter = function(filterValue) {
                   if (filterValue === "all") {
                       currentFilters.clear();
@@ -660,7 +711,6 @@
                   }
               }
 
-              // EVENT RECHERCHE EN TEMPS RÉEL
               const searchInput = document.getElementById("projectSearchInput");
               if (searchInput) {
                   searchInput.addEventListener("input", function() {
@@ -670,7 +720,6 @@
                   });
               }
 
-              // FONCTION PRINCIPALE D'AFFICHAGE ET PAGINATION DE LA GRILLE
               function renderProjectsGrid() {
                   const grid = document.getElementById("portfolio-grid");
                   const paginationContainer = document.getElementById("portfolio-pagination");
@@ -711,9 +760,17 @@
                       const originalIndex = globalProjectsData.indexOf(proj);
                       const isAllowed = proj.isPublic || (userAllowedProjects !== null && userAllowedProjects[originalIndex] === true);
                       
-                      const projectImage = (proj.img && proj.img.trim() !== "") 
-                          ? proj.img 
-                          : "https://placehold.co/600x400/2c3e50/ffffff?text=" + encodeURIComponent(proj.title) + "&font=Montserrat";
+                      let projectImage = "";
+                      const imgValue = proj.img ? proj.img.trim() : "";
+                      if (imgValue !== "") {
+                          if (/^(https?:\/\/|data:image|\.\/|\/)/i.test(imgValue)) {
+                              projectImage = imgValue;
+                          } else {
+                              projectImage = "https://placehold.co/600x400/2c3e50/ffffff?text=" + encodeURIComponent(imgValue);
+                          }
+                      } else {
+                          projectImage = "https://placehold.co/600x400/2c3e50/ffffff?text=" + encodeURIComponent(proj.title);
+                      }
                               
                       const col = document.createElement("div");
                       col.className = "col-md-6 col-lg-4 mb-5";
@@ -802,7 +859,6 @@
                   paginationContainer.appendChild(nextBtn);
               }
 
-              // FONCTION D'AFFICHAGE DES COMPÉTENCES (SKILLS)
               function renderSkills(skills) {
                   const container = document.getElementById("skills-container");
                   container.innerHTML = ""; 
@@ -887,7 +943,6 @@
                   skillBars.forEach(bar => observer.observe(bar));
               }
 
-              // MODALE DYNAMIQUE AVEC INJECTION DES TAGS ET LIENS
               const dynamicModal = document.getElementById('dynamicPortfolioModal');
               if (dynamicModal) {
                   dynamicModal.addEventListener('show.bs.modal', function (event) {
@@ -898,7 +953,6 @@
                       const rawText = decodeURIComponent(trigger.getAttribute('data-text') || '');
                       document.getElementById('modal-dynamic-text').innerHTML = formatSheetText(rawText);
 
-                      // 1. GESTION DES TAGS (Catégories et Compétences)
                       const rawCat = decodeURIComponent(trigger.getAttribute('data-category') || '');
                       const rawSk = decodeURIComponent(trigger.getAttribute('data-skills') || '');
                       const tagsContainer = document.getElementById('modal-dynamic-tags');
@@ -922,7 +976,6 @@
                           });
                       }
                       
-                      // 2. GESTION DES LIENS DE CODE SOURCE (Nouvelle Fonctionnalité)
                       const rawLinks = decodeURIComponent(trigger.getAttribute('data-links') || '');
                       const linksContainer = document.getElementById('modal-dynamic-links');
                       linksContainer.innerHTML = '';
@@ -934,8 +987,6 @@
                                   const url = parts[0].trim();
                                   const text = parts[1].trim();
                                   if (url && text) {
-                                      // Utilisation de l'attribut download et du style professionnel
-                                      // On tente d'extraire le nom du fichier depuis l'URL
                                       const fileName = url.split('/').pop() || 'download';
                                       linksContainer.innerHTML += `<a href="${url}" download="${fileName}" target="_blank" class="source-code-btn rounded-pill fw-bold shadow-sm mx-2 my-1"><i class="fas fa-download me-2"></i> ${text}</a>`;
                                   }
@@ -945,20 +996,17 @@
                   });
               }
 
-              // Fonction pour basculer un filtre depuis la modale et la fermer
               window.filterFromModal = function(filterVal) {
                   const modalEl = document.getElementById('dynamicPortfolioModal');
                   const modalInstance = bootstrap.Modal.getInstance(modalEl);
                   if (modalInstance) modalInstance.hide();
                   
-                  // On s'assure d'ajouter le filtre (s'il n'y est pas) au lieu de juste le toggler (effacer) par erreur
                   if (!currentFilters.has(filterVal)) {
                       applyFilter(filterVal);
                   }
                   document.getElementById("portfolio").scrollIntoView({ behavior: 'smooth' });
               };
 
-              // GESTION DU LOGIN
               const submitLoginBtn = document.getElementById("submitLoginBtn");
               const accessCodeInput = document.getElementById("accessCodeInput");
               const loginError = document.getElementById("login-error");
@@ -1001,7 +1049,6 @@
                               }
                               
                               if (result.data.lastName) {
-                                  // Update the page title and footer ONLY
                                   document.title = "Portfolio Nathaël " + result.data.lastName;
                                   
                                   const copyLastName = document.getElementById("copy-lastname");
