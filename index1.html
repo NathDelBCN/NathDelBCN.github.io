@@ -31,7 +31,7 @@
             .portfolio-item:hover .fa-lock { transform: rotate(15deg) scale(1.1); }
             .portfolio-item img { height: 100% !important; width: 100% !important; object-fit: cover; }
             
-            /* --- STYLES SKILLS & INTERACTIONS MOBILES/DESKTOP --- */
+            /* --- STYLES SKILLS --- */
             .skill-card { background: #fff; border-radius: 1rem; padding: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); margin-bottom: 30px; transition: all 0.3s ease; border: 2px solid transparent; color: #2c3e50; }
             .skill-category-title { color: #2c3e50; border-bottom: 3px solid #1abc9c; display: inline-block; padding-bottom: 8px; margin-bottom: 25px; transition: color 0.3s ease; cursor: pointer; }
             .skill-category-title:hover { color: #1abc9c; }
@@ -53,14 +53,69 @@
             .filter-dropdown-box { min-width: 260px; width: 100%; flex: 1; }
             @media (min-width: 768px) { .filter-dropdown-box { width: auto; } }
             
-            .dropdown-menu { max-height: 280px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #1abc9c #2c3e50; }
+            /* Scrollbar et Bordures Arrondies du Menu Déroulant */
+            .dropdown-menu { 
+                max-height: 380px; 
+                overflow-y: auto; 
+                overflow-x: hidden; 
+                scrollbar-width: thin; 
+                scrollbar-color: #1abc9c transparent; 
+                border-radius: 1rem !important; 
+                padding: 15px !important; 
+                background-color: #2c3e50; 
+                min-width: 100%;
+            }
             .dropdown-menu::-webkit-scrollbar { width: 6px; }
-            .dropdown-menu::-webkit-scrollbar-track { background: #2c3e50; border-radius: 10px; }
+            .dropdown-menu::-webkit-scrollbar-track { background: transparent; margin: 15px 0; }
             .dropdown-menu::-webkit-scrollbar-thumb { background: #1abc9c; border-radius: 10px; }
             
-            .dropdown-menu .dropdown-item { color: #fff; border-radius: 0.5rem; padding: 10px 15px; font-weight: 600; transition: all 0.2s ease; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-            .dropdown-menu .dropdown-item:hover, .dropdown-menu .dropdown-item.active { background-color: #1abc9c; color: #fff; }
-            .dropdown-header { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #1abc9c !important; font-weight: bold; margin-top: 5px; }
+            /* Bouton "Clear Filters" en haut du menu */
+            .clear-filter-item {
+                background-color: #1abc9c !important;
+                color: #fff !important;
+                border-radius: 0.5rem;
+                font-weight: 700;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 20px;
+                margin-bottom: 10px;
+                transition: all 0.3s ease;
+                text-decoration: none;
+            }
+            .clear-filter-item:hover {
+                background-color: #128f76 !important;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 10px rgba(26,188,156,0.3);
+                color: #fff;
+            }
+
+            /* Éléments standards du menu */
+            .custom-dd-item {
+                color: #fff;
+                border-radius: 0.5rem;
+                padding: 10px 15px;
+                font-weight: 600;
+                transition: all 0.2s ease;
+                margin-bottom: 4px;
+                display: block;
+                text-decoration: none;
+            }
+            .custom-dd-item:hover, .custom-dd-item.active {
+                background-color: rgba(26, 188, 156, 0.2) !important;
+                color: #1abc9c !important;
+            }
+            .custom-dd-item.active .check-icon { opacity: 1 !important; color: #1abc9c; }
+            
+            /* En-têtes du menu */
+            .dropdown-header {
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                color: #1abc9c !important;
+                font-weight: 800;
+                padding: 5px 15px;
+            }
             
             /* --- BADGES FILTRES ACTIFS --- */
             .active-filter-badge { background-color: #1abc9c; color: white; padding: 8px 16px; border-radius: 50px; font-weight: bold; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
@@ -138,7 +193,7 @@
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <p class="masthead-subheading font-weight-light mb-0 fs-5 fs-md-4" id="student-info">Student at Angeleta Ferrer i Sensat — 15 years old</p>
+                <p class="masthead-subheading font-weight-light mb-0 fs-5 fs-md-4" id="student-info">High School Student</p>
             </div>
         </header>
         
@@ -163,7 +218,7 @@
                         <button class="btn btn-secondary dropdown-toggle rounded-pill w-100 fw-bold shadow-sm d-flex justify-content-between align-items-center" type="button" id="dropdownFilterBtn" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="height: 55px; background-color: #2c3e50; border: 2px solid #2c3e50; padding: 0 25px;">
                             <span>📂 Filter Projects</span>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2" id="customFilterMenu" style="border-radius: 1rem; background-color: #2c3e50; min-width: 100%;">
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0" id="customFilterMenu">
                             <!-- Généré dynamiquement en JS -->
                         </ul>
                     </div>
@@ -219,8 +274,8 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-lg-8 text-center">
-                        <p class="lead format-rich-text" style="font-size: 1.25rem;">
-                            Hi! I'm Nathaël<span id="about-lastname"></span>, a <span id="about-age">15</span>-year-old <span id="about-school-text">student at Angeleta Ferrer i Sensat</span> passionate about programming and web development. 
+                        <p class="lead format-rich-text">
+                            Hi! I'm Nathaël<span id="about-lastname"></span>, a <span id="about-age">15</span>-year-old <span id="about-school-text">high school student</span> passionate about programming and web development. 
                             This portfolio showcases my personal projects, skills, and coding journey. 
                             Feel free to explore my work and contact me if you want to collaborate!
                         </p>
@@ -431,12 +486,12 @@
                   const isVacations = (currentMonth === 6 && currentDay >= 20) || (currentMonth === 7) || (currentMonth === 8);
                   
                   if (aboutSchoolText) {
-                      aboutSchoolText.textContent = (schoolName !== "High School Student") ? `student at ${schoolName}` : "student at Angeleta Ferrer i Sensat";
+                      aboutSchoolText.textContent = (schoolName !== "High School Student") ? `student at ${schoolName}` : "high school student";
                   }
 
                   if (!infoElement) return;
                   if (isVacations) {
-                      infoElement.textContent = `Student at Angeleta Ferrer i Sensat — ${age} years old`;
+                      infoElement.textContent = `${schoolName} — ${age} years old`;
                       return; 
                   }
 
@@ -446,9 +501,9 @@
                   else if (schoolYearStart === 2026) classe = "4th Grade ESO";
                   else if (schoolYearStart === 2027) classe = "1st Year of BATXILLERAT";
                   else if (schoolYearStart === 2028) classe = "2nd Year of BATXILLERAT";
-                  else if (schoolYearStart > 2028) { infoElement.textContent = `Student at Angeleta Ferrer i Sensat — ${age} years old`; return; }
+                  else if (schoolYearStart > 2028) { infoElement.textContent = `Student — ${age} years old`; return; }
 
-                  infoElement.textContent = `Student at Angeleta Ferrer i Sensat — ${age} years old — ${classe}`;
+                  infoElement.textContent = `${schoolName} — ${age} years old — ${classe}`;
               }
 
               updateStudentInfo(); 
@@ -497,9 +552,6 @@
                           const favicon = document.getElementById("site-favicon");
                           if (favicon) favicon.href = projectsResult.siteLogo;
                       }
-                      if (projectsResult.data && projectsResult.data.school) {
-                          updateStudentInfo(projectsResult.data.school);
-                      }
 
                   } else {
                       document.getElementById("portfolio-grid").innerHTML = `<p class="text-danger fw-bold">Failed to load projects.</p>`;
@@ -514,19 +566,24 @@
               function buildDropdownMenu() {
                   const menu = document.getElementById("customFilterMenu");
                   if (!menu) return;
-                  
-                  let html = `<li><a class="dropdown-item active" href="#!" data-value="all"><i class="fas fa-times-circle me-2"></i> Clear Filters</a></li>`;
+
+                  let html = `
+                  <li class="mb-2">
+                      <a class="dropdown-item clear-filter-item" href="#!" data-value="all">
+                          <i class="fas fa-times-circle"></i> <span>Clear Filters</span>
+                      </a>
+                  </li>`;
                   
                   const sortedCategories = Array.from(categorySet).sort();
                   const sortedSkills = Array.from(skillSet).sort();
 
                   if (sortedCategories.length > 0) {
-                      html += `<li><hr class="dropdown-divider bg-light"></li>`;
+                      html += `<li><hr class="dropdown-divider border-secondary opacity-25 my-2"></li>`;
                       html += `<li><h6 class="dropdown-header">Categories Used</h6></li>`;
                       sortedCategories.forEach(cat => {
                           html += `<li><a class="dropdown-item custom-dd-item" href="#!" data-value="${cat.toLowerCase()}">
                                       <div class="d-flex align-items-center justify-content-between w-100">
-                                          <span>📂 ${cat}</span>
+                                          <span><i class="fas fa-folder text-warning me-2"></i> ${cat}</span>
                                           <i class="fas fa-check check-icon" style="opacity:0;"></i>
                                       </div>
                                    </a></li>`;
@@ -534,12 +591,12 @@
                   }
 
                   if (sortedSkills.length > 0) {
-                      html += `<li><hr class="dropdown-divider bg-light"></li>`;
+                      html += `<li><hr class="dropdown-divider border-secondary opacity-25 my-2"></li>`;
                       html += `<li><h6 class="dropdown-header">Skills Used</h6></li>`;
                       sortedSkills.forEach(sk => {
                           html += `<li><a class="dropdown-item custom-dd-item" href="#!" data-value="${sk.toLowerCase()}">
                                       <div class="d-flex align-items-center justify-content-between w-100">
-                                          <span>⚡ ${sk}</span>
+                                          <span><i class="fas fa-bolt text-danger me-2"></i> ${sk}</span>
                                           <i class="fas fa-check check-icon" style="opacity:0;"></i>
                                       </div>
                                    </a></li>`;
@@ -805,8 +862,10 @@
                       });
 
                       col.innerHTML = `
-                          <div class="skill-card h-100" title="Click to view all projects tagged with ${categoryName}">
-                              <h4 class="skill-category-title text-uppercase fw-bold"><i class="fas fa-layer-group me-2"></i>${categoryName}</h4>
+                          <div class="skill-card h-100">
+                              <h4 class="skill-category-title text-uppercase fw-bold" data-category-name="${cleanParam(categoryName)}" title="Add ${categoryName} to filters">
+                                  <i class="fas fa-layer-group me-2"></i>${categoryName}
+                              </h4>
                               ${skillsHtml}
                           </div>
                       `;
@@ -845,7 +904,7 @@
                   skillBars.forEach(bar => observer.observe(bar));
               }
 
-              // MODALE DYNAMIQUE AVEC INJECTION DES TAGS EN BAS
+              // MODALE DYNAMIQUE
               const dynamicModal = document.getElementById('dynamicPortfolioModal');
               if (dynamicModal) {
                   dynamicModal.addEventListener('show.bs.modal', function (event) {
@@ -881,13 +940,11 @@
                   });
               }
 
-              // Fonction pour basculer un filtre depuis la modale et la fermer
               window.filterFromModal = function(filterVal) {
                   const modalEl = document.getElementById('dynamicPortfolioModal');
                   const modalInstance = bootstrap.Modal.getInstance(modalEl);
                   if (modalInstance) modalInstance.hide();
                   
-                  // On s'assure d'ajouter le filtre (s'il n'y est pas) au lieu de juste le toggler (effacer) par erreur
                   if (!currentFilters.has(filterVal)) {
                       applyFilter(filterVal);
                   }
